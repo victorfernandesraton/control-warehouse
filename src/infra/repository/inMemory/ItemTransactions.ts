@@ -15,4 +15,8 @@ export default class ItemTrasactionsInMemoryRepository implements ITemTrasaction
         return data?.[0] ?? null
     }
 
+    cleanAllData() {
+        this.storage = [];
+    }
+
 }
