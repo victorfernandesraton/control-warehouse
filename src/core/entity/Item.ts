@@ -1,20 +1,21 @@
 import BasicEntity from "./BasicEntity"
-import Tag from "./Tag";
-
+import Category from "./Category";
 export interface  ItemObjectParams {
     name: string
-    description: string
-    tags?: Tag[]
+    description?: string
+    category: Category
+    tag?: string[]
 }
 
 export default class Item extends BasicEntity {
     public name: string
-    public description: string
-    public tags: Tag[]
+    public description?: string
+    public category: Category
+    public tag: string[]
 
-    constructor(params: ItemObjectParams) {
+    constructor({name, description}: ItemObjectParams) {
         super();
-        this.name = params.name
-        this.description = params.description
+        this.name = name
+        this.description = description
     }
 }

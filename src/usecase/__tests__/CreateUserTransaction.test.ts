@@ -1,4 +1,4 @@
-import Item from "../../core/entity/Item";
+import Item from "../../core/entity/Category";
 import User from "../../core/entity/User";
 import {TransactionEnum} from '../../core/entity/Transaction'
 import ItemTrasactionsInMemoryRepository from "../../infra/repository/inMemory/ItemTransactions";

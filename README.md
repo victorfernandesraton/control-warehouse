@@ -19,10 +19,10 @@ As camadas de pasta implemetarão unica responsabilidade definida pela seguinte 
 +-- infra
 |   +-- database
 |   |   +-- firebase
-|   +-- port
-|   |   +-- repositories
-|   |   |   +-- firebase
+|   +-- repositories
 ```
 
 #### Entidades
 São as entidades descritas pelo seguinte diagrama
+
+__TODO__ Diagrama de entidades

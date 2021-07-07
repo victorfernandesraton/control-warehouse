@@ -10,4 +10,8 @@ export default class BasicEntity {
         this.createdAt = new Date(Date.now())
         this.updatedAt = new Date(Date.now())
     }
+
+    protected updateEntity() {
+        this.updatedAt= new Date(Date.now())
+    }
 }
