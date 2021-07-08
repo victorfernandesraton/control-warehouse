@@ -1,6 +1,6 @@
 import Item from '../../core/entity/Item'
 
 export default interface ItemRepository {
-    createItem(item: Item)
-    find(item: Item)
+    createItem(item: Item): Promise<Item | null>
+    find(item: Item): Promise<Item[] | null>
 }

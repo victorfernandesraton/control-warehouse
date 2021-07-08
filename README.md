@@ -25,4 +25,38 @@ As camadas de pasta implemetarão unica responsabilidade definida pela seguinte 
 #### Entidades
 São as entidades descritas pelo seguinte diagrama
 
-__TODO__ Diagrama de entidades
+<img src="./resources/class.svg" />
+
+## Requisitos
+
+Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja de varacterísticas a serem entregues
+
+### item
+[] deve possuir categoria válidaa  
+[] deve ser sempre associado a um storage  
+[] o nome é obrigatório  
+[] não pode exceder um storage  
+[] o storage indicado deve estar disponivél  
+### categoria
+[] deve possuir um nome único  
+
+### storage
+- [] possui um nome obrigatório  
+- [] pode possuir um storage filho  
+- [] possui uma capacidade máxima  
+- [] um storage não precisa ter itens  
+- [] possui um status  
+    - [] ativo  
+    - [] cheio  
+    - [] desativado  
+    - [] em manutenção  
+
+### transação
+- [] possui um item de referência  
+- [] possui um usuário de referẽncia  
+- Retirada  
+    - [] não altera a quantidade de itens no storage quando for uma retirada  
+    - [] possui uma data de expiração (limite)  
+- Devolução  
+    - [] o storage deve estar disponivél  
+    - [] somente quem retirou ou um admin pode devolver o item
