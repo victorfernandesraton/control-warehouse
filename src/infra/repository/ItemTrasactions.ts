@@ -1,4 +1,4 @@
-import Item from "../../core/entity/Category";
+import Item from "../../core/entity/Item";
 import Transaction from "../../core/entity/Transaction";
 import User from "../../core/entity/User";
 

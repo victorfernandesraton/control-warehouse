@@ -1,5 +1,5 @@
 import BasicEntity from "./BasicEntity";
-import Item from "./Category";
+import Item from "./Item";
 import User from "./User";
 
 export enum TransactionEnum {
