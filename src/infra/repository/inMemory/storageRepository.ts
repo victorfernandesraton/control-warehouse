@@ -17,8 +17,6 @@ export default class StorageRepositoryInMemory
     return Promise.resolve(storage);
   }
   find({ name, id }: Storage): Promise<Storage> {
-    return Promise.resolve(
-      this.store.find((item) => item.name === name || item.id === id)
-    );
+    return Promise.resolve(this.store.find((item) => item.id === id));
   }
 }

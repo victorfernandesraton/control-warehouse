@@ -7,11 +7,9 @@ export default class ItemRepositoryInMemory
   extends InMemoryDb<Item>
   implements ItemRepository
 {
-  findByCategory({ name, id }: Category): Promise<Item[]> {
+  findByCategory({ id }: Category): Promise<Item[]> {
     return Promise.resolve(
-      this.store.filter(
-        (item: Item) => item.category.name === name || item.category.id === id
-      )
+      this.store.filter((item: Item) => item.category.id === id)
     );
   }
   createItem(item: Item): Promise<Item> {
@@ -19,7 +17,7 @@ export default class ItemRepositoryInMemory
     return Promise.resolve(item);
   }
 
-  find({ id }: Item): Promise<Item[]> {
-    return Promise.resolve(this.store?.filter?.((item) => item.id === id));
+  find({ id }: Item): Promise<Item> {
+    return Promise.resolve(this.store?.find?.((item) => item.id === id));
   }
 }

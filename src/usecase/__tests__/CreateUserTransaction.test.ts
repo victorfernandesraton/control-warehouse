@@ -41,17 +41,22 @@ describe("CreateUserTransaction", () => {
       categoryRepository,
       storageRepository,
     });
+    const storage = new Storage({
+      name: "Caixa 1",
+      description: "Caixa de ferramentas 1",
+    });
+    const category = new Category({
+      name: "chave de fenda",
+      description: "conjunto de chaves",
+    });
+
+    await storageRepository.createStorage(storage);
+    await categoryRepository.createCategory(category);
     const item = new Item({
       name: "Chave de fenda",
       description: "uma chave de fenda",
-      category: new Category({
-        name: "chave de fenda",
-        description: "conjunto de chaves",
-      }),
-      storage: new Storage({
-        name: "Caixa 1",
-        description: "Caixa de ferramentas 1",
-      }),
+      category,
+      storage,
     });
 
     const result = await usecase.execute(userBasic, item);

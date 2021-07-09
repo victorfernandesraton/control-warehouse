@@ -32,6 +32,7 @@ export default class CreateItem {
           this.itemRepository.find(item),
           this.itemRepository.findByCategory(item.category),
         ]);
+
       if (!isValidCategory) {
         throw new Error(`Category ${item.category.name} is not valid`);
       }
@@ -43,19 +44,28 @@ export default class CreateItem {
         throw new Error("storage is not avaliable");
       }
 
-      if (itensByStorage.length >= storage.capacity) {
-        if (storage.status === StorageStatusEnum.avaliable) {
+      if (!storage.capacity) {
+        throw new Error(
+          `storage (${storage.name}/${storage.id}) not have capacity`
+        );
+      }
+
+      if (itensByStorage.length + 1 > storage.capacity || !storage.capacity) {
+        if (storage.status == StorageStatusEnum.avaliable) {
           storage.status = StorageStatusEnum.full;
           await this.storageRepository.updateStorage(storage);
         }
-        throw new Error("storage is full");
+        throw new Error(
+          `storage is full ${storage.name} capacity ${storage.capacity} and have ${itensByStorage[0].name}`
+        );
       }
-      if (itensByStorage.length + 1 === storage.capacity) {
+
+      if (itensByStorage.length + 1 == storage.capacity) {
         storage.status = StorageStatusEnum.full;
         await this.storageRepository.updateStorage(storage);
       }
 
-      if (isHaveItem.length) {
+      if (isHaveItem) {
         throw new Error("item is exist");
       }
       const createdItem = await this.itemRepository.createItem(item);

@@ -26,7 +26,7 @@ export default class Storage extends BasicEntity {
     if (status) {
       this.status = status;
     }
-    if (capacity) {
+    if (capacity || capacity == 0) {
       this.capacity = capacity;
     }
   }
