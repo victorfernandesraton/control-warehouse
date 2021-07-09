@@ -29,38 +29,31 @@ describe("CreateItem", () => {
     itemRepository.clearAll();
     categoryRepository.clearAll();
     storageRepository.clearAll();
-  }, 2);
+  });
 
   describe("created sucessfull", () => {
     test("should be create item", async () => {
-      expect.assertions(2);
-      const createdItem = new CreateItem({
+      expect.assertions(1);
+      const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
         storageRepository,
       });
 
-      const item = await createdItem.execute(
-        new Item({
-          name: "Chave de fenda n5",
-          category: categpries[0],
-          storage: storages[0],
-          tag: ["cahev de fenda", "item de eletricista"],
-        })
-      );
+      const item = new Item({
+        name: "Chave de fenda n5",
+        category: categpries[0],
+        storage: storages[0],
+        tag: ["cahev de fenda", "item de eletricista"],
+      });
 
-      expect(item.id).not.toBeNull();
-      expect(item.tag).toHaveLength(2);
+      await expect(usecase.execute(item)).resolves.toEqual(item);
+
+      itemRepository.clearAll();
     });
   });
 
   describe("Test error storage full", () => {
-    beforeAll(() => {
-      itemRepository.clearAll();
-      categoryRepository.clearAll();
-      storageRepository.clearAll();
-    }, 2);
-
     test("Shoud not be createItem because storage is full", async () => {
       expect.assertions(1);
 
@@ -94,7 +87,7 @@ describe("CreateItem", () => {
 
       const usecase = new CreateItem({
         categoryRepository,
-        itemRepository,
+        itemRepository: new ItemRepositoryInMemory(), // TODO ajustar sincronia para limnpar elementos
         storageRepository,
       });
 
