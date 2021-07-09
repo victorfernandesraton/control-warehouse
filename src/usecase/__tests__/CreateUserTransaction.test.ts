@@ -1,7 +1,7 @@
 import { TransactionEnum } from "../../core/entity/Transaction";
 import Category from "../../core/entity/Category";
 import Item from "../../core/entity/Item";
-import Storage from "../../core/entity/Storage";
+import Storage, { StorageStatusEnum } from "../../core/entity/Storage";
 import User from "../../core/entity/User";
 
 import CategoryRepositoryInMemory from "../../infra/repository/inMemory/Category";
@@ -36,6 +36,11 @@ describe("CreateUserTransaction", () => {
     transactionRepo.cleanAllData();
   });
   test("should be created transaction", async () => {
+    const usecase = new CreateLoanTransaction({
+      transactionRepo,
+      categoryRepository,
+      storageRepository,
+    });
     const item = new Item({
       name: "Chave de fenda",
       description: "uma chave de fenda",
@@ -47,12 +52,6 @@ describe("CreateUserTransaction", () => {
         name: "Caixa 1",
         description: "Caixa de ferramentas 1",
       }),
-    });
-
-    const usecase = new CreateLoanTransaction({
-      transactionRepo,
-      categoryRepository,
-      storageRepository,
     });
 
     const result = await usecase.execute(userBasic, item);

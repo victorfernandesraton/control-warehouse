@@ -11,19 +11,23 @@ export interface StorageObjectParams {
   name: string;
   description: string;
   status?: StorageStatusEnum;
+  capacity?: number;
 }
 
 export default class Storage extends BasicEntity {
-  public name: string;
-  public description: string;
-  public status: StorageStatusEnum = StorageStatusEnum.avaliable;
-
-  constructor({ name, description, status }: StorageObjectParams) {
+  name: string;
+  description: string;
+  status: StorageStatusEnum = StorageStatusEnum.avaliable;
+  capacity: number = 100;
+  constructor({ name, description, status, capacity }: StorageObjectParams) {
     super();
     this.name = name;
     this.description = description;
     if (status) {
       this.status = status;
+    }
+    if (capacity) {
+      this.capacity = capacity;
     }
   }
 }
