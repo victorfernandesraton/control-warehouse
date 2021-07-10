@@ -6,34 +6,18 @@ import ItemTrasactionsInMemoryRepository from '../../infra/repository/inMemory/I
 
 import Transaction, { TransactionEnum } from '../../core/entity/Transaction';
 
-import User from '../../core/entity/User';
-import Storage from '../../core/entity/Storage';
-import Category from '../../core/entity/Category';
-
-const userBasic = new User({
-  email: 'vfbraton@gmail.com',
-  name: 'Victor Raton',
-});
+import { categpries, storages, userBasic } from '../__fake__/index';
 
 describe('CreateUserTransaction', () => {
   describe('Sucessfull transaction', () => {
     test('should be created transaction', async function () {
       const transactionRepo = new ItemTrasactionsInMemoryRepository();
-      const storage = new Storage({
-        name: 'Caixa 1',
-        description: 'Caixa de ferramentas 1',
-      });
-      const category = new Category({
-        name: 'chave de fenda',
-        description: 'conjunto de chaves',
-        uniqueName: 'CHAVE_DE_FENDA',
-      });
 
       const item = new Item({
         name: 'Chave de fenda',
         description: 'uma chave de fenda',
-        category,
-        storage,
+        category: categpries[0],
+        storage: storages[0],
       });
       const itemRepository = new ItemRepositoryInMemory([item]);
       const usecase = new CreateLoanTransaction({
@@ -55,21 +39,11 @@ describe('CreateUserTransaction', () => {
   });
   describe('Error cases', () => {
     test('should be devolution', async function () {
-      const storage = new Storage({
-        name: 'Caixa 1',
-        description: 'Caixa de ferramentas 1',
-      });
-      const category = new Category({
-        name: 'chave de fenda',
-        description: 'conjunto de chaves',
-        uniqueName: 'CHAVE_DE_FENDA',
-      });
-
       const item = new Item({
         name: 'Chave de fenda',
         description: 'uma chave de fenda',
-        category,
-        storage,
+        category: categpries[1],
+        storage: storages[1],
       });
       const itemRepository = new ItemRepositoryInMemory([item]);
 

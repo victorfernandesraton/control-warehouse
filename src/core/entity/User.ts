@@ -1,17 +1,20 @@
-import BasicEntity from "./BasicEntity";
+import BasicEntity from './BasicEntity';
 
 export interface UserObjectParams {
   name: string;
   email: string;
+  isAdmin?: boolean;
 }
 
 export default class User extends BasicEntity {
-  public name: string;
-  public email: string;
+  name: string;
+  email: string;
+  isAdmin: boolean;
 
-  constructor(params: UserObjectParams) {
+  constructor({ name, email, isAdmin = false }: UserObjectParams) {
     super();
-    this.name = params.name;
-    this.email = params.email;
+    this.name = name;
+    this.email = email;
+    this.isAdmin = isAdmin;
   }
 }

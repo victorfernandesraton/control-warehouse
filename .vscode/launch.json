@@ -5,12 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "command": "npm test",
+      "name": "Run npm test",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/usecase/__tests__/CreateUserTransaction.test.ts",
-      "outFiles": ["${workspaceFolder}/**/*.js"]
+      "type": "node-terminal"
     }
   ]
 }

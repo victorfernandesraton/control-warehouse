@@ -5,24 +5,8 @@ import CategoryRepositoryInMemory from '../../infra/repository/inMemory/Category
 import ItemRepositoryInMemory from '../../infra/repository/inMemory/Item';
 import StorageRepositoryInMemory from '../../infra/repository/inMemory/storageRepository';
 import CreateItem from '../CreateItem';
-
+import { categpries, storages } from '../__fake__/index';
 describe('CreateItem', () => {
-  const categpries = [
-    new Category({
-      name: 'chave de fenda',
-      description: 'conjunto de chaves',
-      uniqueName: 'CHAVE_DE_FENDA',
-    }),
-    new Category({
-      name: 'resistor',
-      description: 'dispositivio resistivo',
-      uniqueName: 'RESISTOR',
-    }),
-  ];
-  const storages = [
-    new Storage({ name: 'Caixa 1', description: 'Caixa de ferramentas 1' }),
-    new Storage({ name: 'Caixa 2', description: 'Caixa de ferramentas 2' }),
-  ];
   const categoryRepository = new CategoryRepositoryInMemory(categpries);
   const storageRepository = new StorageRepositoryInMemory(storages);
   const itemRepository = new ItemRepositoryInMemory();
