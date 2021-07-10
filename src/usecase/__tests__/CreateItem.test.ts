@@ -11,10 +11,12 @@ describe('CreateItem', () => {
     new Category({
       name: 'chave de fenda',
       description: 'conjunto de chaves',
+      uniqueName: 'CHAVE_DE_FENDA',
     }),
     new Category({
       name: 'resistor',
       description: 'dispositivio resistivo',
+      uniqueName: 'RESISTOR',
     }),
   ];
   const storages = [
@@ -147,6 +149,7 @@ describe('CreateItem', () => {
       const category = new Category({
         name: 'Caixa de chave de rosca',
         description: 'Uma caixa com um monte de chaves',
+        uniqueName: 'CHAVE_DE_ROSCA',
       });
 
       const item = new Item({

@@ -26,6 +26,7 @@ describe('CreateUserTransaction', () => {
       const category = new Category({
         name: 'chave de fenda',
         description: 'conjunto de chaves',
+        uniqueName: 'CHAVE_DE_FENDA',
       });
 
       const item = new Item({
@@ -61,6 +62,7 @@ describe('CreateUserTransaction', () => {
       const category = new Category({
         name: 'chave de fenda',
         description: 'conjunto de chaves',
+        uniqueName: 'CHAVE_DE_FENDA',
       });
 
       const item = new Item({
