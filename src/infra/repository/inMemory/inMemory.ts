@@ -1,6 +1,6 @@
 export default class InMemoryDb<T> {
-  protected store: Array<T> = [];
-  protected initialized: Array<T> = [];
+  store: Array<T> = [];
+  initialized: Array<T> = [];
   constructor(list?: Array<T>) {
     if (list) {
       this.store = list;

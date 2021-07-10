@@ -1,25 +1,25 @@
-import Category from "../../core/entity/Category";
-import Item from "../../core/entity/Item";
-import Storage, { StorageStatusEnum } from "../../core/entity/Storage";
-import CategoryRepositoryInMemory from "../../infra/repository/inMemory/Category";
-import ItemRepositoryInMemory from "../../infra/repository/inMemory/Item";
-import StorageRepositoryInMemory from "../../infra/repository/inMemory/storageRepository";
-import CreateItem from "../CreateItem";
+import Category from '../../core/entity/Category';
+import Item from '../../core/entity/Item';
+import Storage, { StorageStatusEnum } from '../../core/entity/Storage';
+import CategoryRepositoryInMemory from '../../infra/repository/inMemory/Category';
+import ItemRepositoryInMemory from '../../infra/repository/inMemory/Item';
+import StorageRepositoryInMemory from '../../infra/repository/inMemory/storageRepository';
+import CreateItem from '../CreateItem';
 
-describe("CreateItem", () => {
+describe('CreateItem', () => {
   const categpries = [
     new Category({
-      name: "chave de fenda",
-      description: "conjunto de chaves",
+      name: 'chave de fenda',
+      description: 'conjunto de chaves',
     }),
     new Category({
-      name: "resistor",
-      description: "dispositivio resistivo",
+      name: 'resistor',
+      description: 'dispositivio resistivo',
     }),
   ];
   const storages = [
-    new Storage({ name: "Caixa 1", description: "Caixa de ferramentas 1" }),
-    new Storage({ name: "Caixa 2", description: "Caixa de ferramentas 2" }),
+    new Storage({ name: 'Caixa 1', description: 'Caixa de ferramentas 1' }),
+    new Storage({ name: 'Caixa 2', description: 'Caixa de ferramentas 2' }),
   ];
   const categoryRepository = new CategoryRepositoryInMemory(categpries);
   const storageRepository = new StorageRepositoryInMemory(storages);
@@ -31,9 +31,8 @@ describe("CreateItem", () => {
     storageRepository.clearAll();
   });
 
-  describe("created sucessfull", () => {
-    test("should be create item", async () => {
-      expect.assertions(1);
+  describe('created sucessfull', () => {
+    test('should be create item', async () => {
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -41,10 +40,10 @@ describe("CreateItem", () => {
       });
 
       const item = new Item({
-        name: "Chave de fenda n5",
+        name: 'Chave de fenda n5',
         category: categpries[0],
         storage: storages[0],
-        tag: ["cahev de fenda", "item de eletricista"],
+        tag: ['cahev de fenda', 'item de eletricista'],
       });
 
       await expect(usecase.execute(item)).resolves.toEqual(item);
@@ -53,10 +52,8 @@ describe("CreateItem", () => {
     });
   });
 
-  describe("Test error storage full", () => {
-    test("Shoud not be createItem because storage is full", async () => {
-      expect.assertions(1);
-
+  describe('Test error storage full', () => {
+    test('Shoud not be createItem because storage is full', async () => {
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -64,16 +61,16 @@ describe("CreateItem", () => {
       });
 
       const storage = new Storage({
-        name: "Caixa de parafusos",
-        description: "Caixa para guardar parafuso",
+        name: 'Caixa de parafusos',
+        description: 'Caixa para guardar parafuso',
         capacity: 0,
       });
 
       await storageRepository.createStorage(storage);
 
       const item = new Item({
-        name: "Parafuso",
-        description: "Parafuso tamanho n",
+        name: 'Parafuso',
+        description: 'Parafuso tamanho n',
         storage,
         category: categpries[0],
       });
@@ -82,9 +79,7 @@ describe("CreateItem", () => {
         `storage (${storage.name}/${storage.id}) not have capacity`
       );
     });
-    test("Shoud not be createItem because storage is full previsouly", async () => {
-      expect.assertions(3);
-
+    test('Shoud not be createItem because storage is full previsouly', async () => {
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository: new ItemRepositoryInMemory(), // TODO ajustar sincronia para limnpar elementos
@@ -92,8 +87,8 @@ describe("CreateItem", () => {
       });
 
       const storage = new Storage({
-        name: "Caixa de parafusos nova",
-        description: "Caixa para guardar parafuso",
+        name: 'Caixa de parafusos nova',
+        description: 'Caixa para guardar parafuso',
         capacity: 1,
       });
 
@@ -101,27 +96,23 @@ describe("CreateItem", () => {
       expect(data.status).toBe(StorageStatusEnum.avaliable);
 
       const item1 = new Item({
-        name: "Parafuso 1",
-        description: "Parafuso tamanho n",
+        name: 'Parafuso 1',
+        description: 'Parafuso tamanho n',
         storage,
         category: categpries[0],
       });
 
       const item2 = new Item({
-        name: "Parafuso 2",
-        description: "Parafuso tamanho n",
+        name: 'Parafuso 2',
+        description: 'Parafuso tamanho n',
         storage,
         category: categpries[0],
       });
 
       await expect(usecase.execute(item1)).resolves.toEqual(item1);
-      await expect(usecase.execute(item2)).rejects.toThrowError(
-        "storage is not avaliable"
-      );
+      await expect(usecase.execute(item2)).rejects.toThrowError('storage is not avaliable');
     });
-    test("Shoud not be createItem because storage is unavaliable", async () => {
-      expect.assertions(1);
-
+    test('Shoud not be createItem because storage is unavaliable', async () => {
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -129,28 +120,24 @@ describe("CreateItem", () => {
       });
 
       const storage = new Storage({
-        name: "Caixa de parafusos",
-        description: "Caixa para guardar parafuso",
+        name: 'Caixa de parafusos',
+        description: 'Caixa para guardar parafuso',
         capacity: 1,
         status: StorageStatusEnum.unavaliable,
       });
       await storageRepository.createStorage(storage);
 
       const item = new Item({
-        name: "Parafuso",
-        description: "Parafuso tamanho n",
+        name: 'Parafuso',
+        description: 'Parafuso tamanho n',
         storage,
         category: categpries[0],
       });
 
-      await expect(usecase.execute(item)).rejects.toThrowError(
-        `storage is not avaliable`
-      );
+      await expect(usecase.execute(item)).rejects.toThrowError(`storage is not avaliable`);
     });
 
-    test("shoud be not create item because category is not valid", async () => {
-      expect.assertions(1);
-
+    test('shoud be not create item because category is not valid', async () => {
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -158,13 +145,13 @@ describe("CreateItem", () => {
       });
 
       const category = new Category({
-        name: "Caixa de chave de rosca",
-        description: "Uma caixa com um monte de chaves",
+        name: 'Caixa de chave de rosca',
+        description: 'Uma caixa com um monte de chaves',
       });
 
       const item = new Item({
-        name: "Parafuso",
-        description: "Parafuso tamanho n",
+        name: 'Parafuso',
+        description: 'Parafuso tamanho n',
         storage: storages[0],
         category,
       });
@@ -172,10 +159,8 @@ describe("CreateItem", () => {
         `Category ${category.name} is not valid`
       );
     });
-    describe("Error in Item", () => {
-      test("shoud be not create item because it is duplicated", async () => {
-        expect.assertions(2);
-
+    describe('Error in Item', () => {
+      test('shoud be not create item because it is duplicated', async () => {
         const usecase = new CreateItem({
           categoryRepository,
           itemRepository,
@@ -183,15 +168,13 @@ describe("CreateItem", () => {
         });
 
         const item = new Item({
-          name: "Parafuso",
-          description: "Parafuso tamanho n",
+          name: 'Parafuso',
+          description: 'Parafuso tamanho n',
           storage: storages[0],
           category: categpries[0],
         });
         await expect(usecase.execute(item)).resolves.toBe(item);
-        await expect(usecase.execute(item)).rejects.toThrowError(
-          "item is exist"
-        );
+        await expect(usecase.execute(item)).rejects.toThrowError('item is exist');
       });
     });
   });

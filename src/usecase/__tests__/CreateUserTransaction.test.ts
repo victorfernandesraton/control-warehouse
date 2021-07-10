@@ -1,65 +1,98 @@
-import { TransactionEnum } from "../../core/entity/Transaction";
-import Category from "../../core/entity/Category";
-import Item from "../../core/entity/Item";
-import Storage, { StorageStatusEnum } from "../../core/entity/Storage";
-import User from "../../core/entity/User";
+import CreateLoanTransaction from '../CreateLoanTrasaction';
 
-import CategoryRepositoryInMemory from "../../infra/repository/inMemory/Category";
-import ItemRepositoryInMemory from "../../infra/repository/inMemory/Item";
-import ItemTrasactionsInMemoryRepository from "../../infra/repository/inMemory/ItemTransactions";
-import StorageRepositoryInMemory from "../../infra/repository/inMemory/storageRepository";
+import Item from '../../core/entity/Item';
+import ItemRepositoryInMemory from '../../infra/repository/inMemory/Item';
+import ItemTrasactionsInMemoryRepository from '../../infra/repository/inMemory/ItemTransactions';
 
-import CreateLoanTransaction from "../CreateLoanTrasaction";
+import Transaction, { TransactionEnum } from '../../core/entity/Transaction';
 
-describe("CreateUserTransaction", () => {
-  const userBasic = new User({
-    email: "vfbraton@gmail.com",
-    name: "Victor Raton",
+import User from '../../core/entity/User';
+import Storage from '../../core/entity/Storage';
+import Category from '../../core/entity/Category';
+
+const userBasic = new User({
+  email: 'vfbraton@gmail.com',
+  name: 'Victor Raton',
+});
+
+describe('CreateUserTransaction', () => {
+  describe('Sucessfull transaction', () => {
+    test('should be created transaction', async function () {
+      const transactionRepo = new ItemTrasactionsInMemoryRepository();
+      const storage = new Storage({
+        name: 'Caixa 1',
+        description: 'Caixa de ferramentas 1',
+      });
+      const category = new Category({
+        name: 'chave de fenda',
+        description: 'conjunto de chaves',
+      });
+
+      const item = new Item({
+        name: 'Chave de fenda',
+        description: 'uma chave de fenda',
+        category,
+        storage,
+      });
+      const itemRepository = new ItemRepositoryInMemory([item]);
+      const usecase = new CreateLoanTransaction({
+        transactionRepo,
+        itemRepository,
+      });
+
+      const result = await usecase.execute(
+        new Transaction({
+          item,
+          user: userBasic,
+        })
+      );
+      await expect(transactionRepo.lastTrasactionState(item)).resolves.toEqual(result);
+      expect(result.status).toBe(TransactionEnum.Loan);
+      expect(transactionRepo.store).toHaveLength(1);
+      expect(transactionRepo.store).toContainEqual(result);
+    });
   });
-  const transactionRepo = new ItemTrasactionsInMemoryRepository();
-  const categoryRepository = new CategoryRepositoryInMemory([
-    new Category({
-      name: "resistor",
-      description: "dispositivio resistivo",
-    }),
-    new Category({
-      name: "chave de fenda",
-      description: "conjunto de chaves",
-    }),
-  ]);
-  const itemRepository = new ItemRepositoryInMemory();
-  const storageRepository = new StorageRepositoryInMemory([
-    new Storage({ name: "Caixa 1", description: "Caixa de ferramentas 1" }),
-    new Storage({ name: "Caixa 2", description: "Caixa de ferramentas 2" }),
-  ]);
-  beforeEach(() => {
-    transactionRepo.cleanAllData();
-  });
-  test("should be created transaction", async () => {
-    const usecase = new CreateLoanTransaction({
-      transactionRepo,
-      categoryRepository,
-      storageRepository,
-    });
-    const storage = new Storage({
-      name: "Caixa 1",
-      description: "Caixa de ferramentas 1",
-    });
-    const category = new Category({
-      name: "chave de fenda",
-      description: "conjunto de chaves",
-    });
+  describe('Error cases', () => {
+    test('should be devolution', async function () {
+      const storage = new Storage({
+        name: 'Caixa 1',
+        description: 'Caixa de ferramentas 1',
+      });
+      const category = new Category({
+        name: 'chave de fenda',
+        description: 'conjunto de chaves',
+      });
 
-    await storageRepository.createStorage(storage);
-    await categoryRepository.createCategory(category);
-    const item = new Item({
-      name: "Chave de fenda",
-      description: "uma chave de fenda",
-      category,
-      storage,
-    });
+      const item = new Item({
+        name: 'Chave de fenda',
+        description: 'uma chave de fenda',
+        category,
+        storage,
+      });
+      const itemRepository = new ItemRepositoryInMemory([item]);
 
-    const result = await usecase.execute(userBasic, item);
-    expect(result.status).toBe(TransactionEnum.Loan);
+      const transactionRepo = new ItemTrasactionsInMemoryRepository([
+        new Transaction({
+          item,
+          user: userBasic,
+        }),
+      ]);
+      const usecase = new CreateLoanTransaction({
+        transactionRepo,
+        itemRepository,
+      });
+
+      expect(transactionRepo.store).toHaveLength(1);
+      await expect(transactionRepo.lastTrasactionState(item)).resolves.toBeDefined();
+      await expect(
+        usecase.execute(
+          new Transaction({
+            item,
+            user: userBasic,
+            status: TransactionEnum.Loan,
+          })
+        )
+      ).rejects.toThrowError('cannot create Item Transaction when item is in Loan');
+    });
   });
 });

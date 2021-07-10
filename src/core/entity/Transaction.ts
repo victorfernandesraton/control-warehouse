@@ -1,26 +1,25 @@
-import BasicEntity from "./BasicEntity";
-import Item from "./Item";
-import User from "./User";
+import BasicEntity from './BasicEntity';
+import Item from './Item';
+import User from './User';
 
 export enum TransactionEnum {
   Loan,
   Devolution,
   Canceled,
-  Refused,
 }
 
-export interface TagObjectParams {
+export interface TransactionObjectParams {
   item: Item;
   user: User;
-  status: TransactionEnum;
+  status?: TransactionEnum;
 }
 
-export default class Tag extends BasicEntity {
+export default class Transaction extends BasicEntity {
   public item: Item;
   public user: User;
   public status: TransactionEnum;
 
-  constructor(params: TagObjectParams) {
+  constructor(params: TransactionObjectParams) {
     super();
     this.item = params.item;
     this.user = params.user;

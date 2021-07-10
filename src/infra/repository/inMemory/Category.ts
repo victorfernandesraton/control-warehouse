@@ -1,6 +1,6 @@
-import Category from "../../../core/entity/Category";
-import CategoryRepository from "../CategoryRepository";
-import InMemoryDb from "./inMemory";
+import Category from '../../../core/entity/Category';
+import CategoryRepository from '../CategoryRepository';
+import InMemoryDb from './inMemory';
 
 export default class CategoryRepositoryInMemory
   extends InMemoryDb<Category>
@@ -15,8 +15,7 @@ export default class CategoryRepositoryInMemory
     return Promise.resolve(
       this.store.find(
         (item: Category) =>
-          (item.name === category.name &&
-            item.description === category.description) ||
+          (item.name === category.name && item.description === category.description) ||
           item.id === category.id
       )
     );

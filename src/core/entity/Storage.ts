@@ -1,4 +1,4 @@
-import BasicEntity from "./BasicEntity";
+import BasicEntity from './BasicEntity';
 
 export enum StorageStatusEnum {
   avaliable,
@@ -18,7 +18,7 @@ export default class Storage extends BasicEntity {
   name: string;
   description: string;
   status: StorageStatusEnum = StorageStatusEnum.avaliable;
-  capacity: number = 100;
+  capacity = 100;
   constructor({ name, description, status, capacity }: StorageObjectParams) {
     super();
     this.name = name;
