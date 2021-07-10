@@ -5,20 +5,14 @@ import CategoryRepositoryInMemory from '../../infra/repository/inMemory/Category
 import ItemRepositoryInMemory from '../../infra/repository/inMemory/Item';
 import StorageRepositoryInMemory from '../../infra/repository/inMemory/storageRepository';
 import CreateItem from '../CreateItem';
-import { categpries, storages } from '../__fake__/index';
+import { categpries, storages } from '../../infra/repository/inMemory/__fake__/index';
 describe('CreateItem', () => {
-  const categoryRepository = new CategoryRepositoryInMemory(categpries);
-  const storageRepository = new StorageRepositoryInMemory(storages);
-  const itemRepository = new ItemRepositoryInMemory();
-
-  beforeEach(() => {
-    itemRepository.clearAll();
-    categoryRepository.clearAll();
-    storageRepository.clearAll();
-  });
-
   describe('created sucessfull', () => {
     test('should be create item', async () => {
+      const categoryRepository = new CategoryRepositoryInMemory();
+      const storageRepository = new StorageRepositoryInMemory();
+      const itemRepository = new ItemRepositoryInMemory();
+
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -40,6 +34,9 @@ describe('CreateItem', () => {
 
   describe('Test error storage full', () => {
     test('Shoud not be createItem because storage is full', async () => {
+      const categoryRepository = new CategoryRepositoryInMemory();
+      const storageRepository = new StorageRepositoryInMemory();
+      const itemRepository = new ItemRepositoryInMemory();
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -66,20 +63,19 @@ describe('CreateItem', () => {
       );
     });
     test('Shoud not be createItem because storage is full previsouly', async () => {
-      const usecase = new CreateItem({
-        categoryRepository,
-        itemRepository: new ItemRepositoryInMemory(), // TODO ajustar sincronia para limnpar elementos
-        storageRepository,
-      });
-
       const storage = new Storage({
         name: 'Caixa de parafusos nova',
         description: 'Caixa para guardar parafuso',
         capacity: 1,
       });
-
-      const data = await storageRepository.createStorage(storage);
-      expect(data.status).toBe(StorageStatusEnum.avaliable);
+      const storageRepository = new StorageRepositoryInMemory([storage]);
+      const categoryRepository = new CategoryRepositoryInMemory();
+      const itemRepository = new ItemRepositoryInMemory();
+      const usecase = new CreateItem({
+        categoryRepository,
+        itemRepository, // TODO ajustar sincronia para limnpar elementos
+        storageRepository,
+      });
 
       const item1 = new Item({
         name: 'Parafuso 1',
@@ -99,6 +95,9 @@ describe('CreateItem', () => {
       await expect(usecase.execute(item2)).rejects.toThrowError('storage is not avaliable');
     });
     test('Shoud not be createItem because storage is unavaliable', async () => {
+      const categoryRepository = new CategoryRepositoryInMemory();
+      const storageRepository = new StorageRepositoryInMemory();
+      const itemRepository = new ItemRepositoryInMemory();
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -124,6 +123,9 @@ describe('CreateItem', () => {
     });
 
     test('shoud be not create item because category is not valid', async () => {
+      const categoryRepository = new CategoryRepositoryInMemory();
+      const storageRepository = new StorageRepositoryInMemory();
+      const itemRepository = new ItemRepositoryInMemory();
       const usecase = new CreateItem({
         categoryRepository,
         itemRepository,
@@ -148,6 +150,9 @@ describe('CreateItem', () => {
     });
     describe('Error in Item', () => {
       test('shoud be not create item because it is duplicated', async () => {
+        const categoryRepository = new CategoryRepositoryInMemory();
+        const storageRepository = new StorageRepositoryInMemory();
+        const itemRepository = new ItemRepositoryInMemory();
         const usecase = new CreateItem({
           categoryRepository,
           itemRepository,

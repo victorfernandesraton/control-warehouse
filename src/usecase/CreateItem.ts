@@ -24,7 +24,7 @@ export default class CreateItem {
       this.categoryRepository.find(item.category),
       this.storageRepository.find(item.storage),
       this.itemRepository.find(item),
-      this.itemRepository.findByCategory(item.category),
+      this.itemRepository.findByStorage(item.storage),
     ]);
 
     if (!isValidCategory) {
@@ -45,7 +45,7 @@ export default class CreateItem {
         await this.storageRepository.updateStorage(storage);
       }
       throw new Error(
-        `storage is full ${storage.name} capacity ${storage.capacity} and have ${itensByStorage[0].name}`
+        `storage is full ${storage.name} capacity ${storage.capacity} and have ${itensByStorage.length}`
       );
     }
 

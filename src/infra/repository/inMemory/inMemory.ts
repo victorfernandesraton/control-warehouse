@@ -3,8 +3,8 @@ export default class InMemoryDb<T> {
   initialized: Array<T> = [];
   constructor(list?: Array<T>) {
     if (list) {
-      this.store = list;
-      this.initialized = list;
+      this.store = Array.from([...list]);
+      this.initialized = Array.from([...list]);
     }
   }
 

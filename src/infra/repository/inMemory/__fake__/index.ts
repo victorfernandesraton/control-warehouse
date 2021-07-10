@@ -1,8 +1,8 @@
-import Category from '../../core/entity/Category';
-import Storage from '../../core/entity/Storage';
-import Item from '../../core/entity/Item';
-import User from '../../core/entity/User';
-import Transaction from '../../core/entity/Transaction';
+import Category from '../../../../core/entity/Category';
+import Storage from '../../../../core/entity/Storage';
+import Item from '../../../../core/entity/Item';
+import User from '../../../../core/entity/User';
+import Transaction from '../../../../core/entity/Transaction';
 
 export const categpries = [
   new Category({
@@ -39,6 +39,11 @@ export const items = [
 export const userBasic = new User({
   email: 'vfbraton@gmail.com',
   name: 'Victor Raton',
+});
+export const userBasicAdmin = new User({
+  email: 'victor@gmail.com',
+  name: 'Victor Fernandes',
+  isAdmin: true,
 });
 
 export const transactions = [

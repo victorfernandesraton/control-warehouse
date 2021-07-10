@@ -22,16 +22,25 @@ export default class CreateDevolutionTransaction {
       this.itemRepsitory.find(transaction.item),
     ]);
 
-    if (transaction.status != TransactionEnum.Devolution) {
-      transaction.status = TransactionEnum.Devolution;
+    if (!lastItemTransaction) {
+      throw new Error('Item shoud be not devolev because is not loan');
     }
 
-    if (lastItemTransaction.user.id !== transaction.user.id && !transaction.user.isAdmin) {
+    if (lastItemTransaction?.status != TransactionEnum.Loan) {
+      throw new Error(
+        `Item (${transaction.item.name}/${transaction.item.id}) shoud not be a devolution because is not a loanned ${lastItemTransaction.id}`
+      );
+    }
+
+    if (!transaction.user.isAdmin && lastItemTransaction.user.id != transaction.user.id) {
       throw new Error(
         `User(${transaction.user.name}/${transaction.user.id}) not be Devolution because is not user tham loan`
       );
     }
 
+    if (transaction.status != TransactionEnum.Devolution) {
+      transaction.status = TransactionEnum.Devolution;
+    }
     const result = await this.transactionRepository.createTransaction(transaction);
     return result;
   }

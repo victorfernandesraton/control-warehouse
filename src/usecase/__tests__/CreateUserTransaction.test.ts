@@ -6,7 +6,7 @@ import ItemTrasactionsInMemoryRepository from '../../infra/repository/inMemory/I
 
 import Transaction, { TransactionEnum } from '../../core/entity/Transaction';
 
-import { categpries, storages, userBasic } from '../__fake__/index';
+import { categpries, storages, userBasic } from '../../infra/repository/inMemory/__fake__/index';
 
 describe('CreateUserTransaction', () => {
   describe('Sucessfull transaction', () => {
@@ -33,8 +33,8 @@ describe('CreateUserTransaction', () => {
       );
       await expect(transactionRepo.lastTrasactionState(item)).resolves.toEqual(result);
       expect(result.status).toBe(TransactionEnum.Loan);
-      expect(transactionRepo.store).toHaveLength(1);
-      expect(transactionRepo.store).toContainEqual(result);
+      expect(transactionRepo.store).toHaveLength(3);
+      expect(transactionRepo.store).toContain(result);
     });
   });
   describe('Error cases', () => {
@@ -46,11 +46,11 @@ describe('CreateUserTransaction', () => {
         storage: storages[1],
       });
       const itemRepository = new ItemRepositoryInMemory([item]);
-
       const transactionRepo = new ItemTrasactionsInMemoryRepository([
         new Transaction({
-          item,
           user: userBasic,
+          item,
+          status: TransactionEnum.Loan,
         }),
       ]);
       const usecase = new CreateLoanTransaction({
@@ -58,8 +58,6 @@ describe('CreateUserTransaction', () => {
         itemRepository,
       });
 
-      expect(transactionRepo.store).toHaveLength(1);
-      await expect(transactionRepo.lastTrasactionState(item)).resolves.toBeDefined();
       await expect(
         usecase.execute(
           new Transaction({
