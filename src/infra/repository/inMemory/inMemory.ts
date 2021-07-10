@@ -8,7 +8,7 @@ export default class InMemoryDb<T> {
     }
   }
 
-  clearAll() {
+  clearAll(): void {
     this.store = this.initialized;
   }
 }
