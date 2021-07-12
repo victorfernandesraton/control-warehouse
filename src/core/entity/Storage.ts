@@ -8,19 +8,26 @@ export enum StorageStatusEnum {
 }
 
 export interface StorageObjectParams {
+  id?: string;
   name: string;
-  description: string;
+  description?: string;
   status?: StorageStatusEnum;
   capacity?: number;
 }
 
 export default class Storage extends BasicEntity {
   name: string;
-  description: string;
+  description = '';
   status: StorageStatusEnum = StorageStatusEnum.avaliable;
   capacity = 100;
-  constructor({ name, description, status, capacity }: StorageObjectParams) {
-    super();
+  constructor({
+    name,
+    description = '',
+    status,
+    capacity,
+    id,
+  }: StorageObjectParams) {
+    super(id);
     this.name = name;
     this.description = description;
     if (status) {

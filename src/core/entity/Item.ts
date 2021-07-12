@@ -1,26 +1,23 @@
-import BasicEntity from "./BasicEntity";
-import Category from "./Category";
-import Storage from "./Storage";
+import BasicEntity from './BasicEntity';
+import Storage from './Storage';
 export interface ItemObjectParams {
+  id?: string;
   name: string;
-  description?: string;
-  category: Category;
   storage: Storage;
+  description?: string;
   tag?: string[];
 }
 
 export default class Item extends BasicEntity {
-  public name: string;
-  public description?: string;
-  public storage: Storage;
-  public category: Category;
-  public tag: string[];
+  name: string;
+  description?: string;
+  tag: string[];
+  storage: Storage;
 
-  constructor({ name, description, storage, tag, category }: ItemObjectParams) {
-    super();
+  constructor({ name, description, storage, tag, id }: ItemObjectParams) {
+    super(id);
     this.name = name;
     this.description = description;
-    this.category = category;
     this.storage = storage;
     this.tag = tag;
   }

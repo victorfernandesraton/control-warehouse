@@ -9,6 +9,7 @@ export enum TransactionEnum {
 }
 
 export interface TransactionObjectParams {
+  id?: string;
   item: Item;
   user: User;
   status?: TransactionEnum;
@@ -19,10 +20,10 @@ export default class Transaction extends BasicEntity {
   public user: User;
   public status: TransactionEnum;
 
-  constructor(params: TransactionObjectParams) {
-    super();
-    this.item = params.item;
-    this.user = params.user;
-    this.status = params?.status ?? TransactionEnum.Loan;
+  constructor({ item, user, status, id }: TransactionObjectParams) {
+    super(id);
+    this.item = item;
+    this.user = user;
+    this.status = status ?? TransactionEnum.Loan;
   }
 }

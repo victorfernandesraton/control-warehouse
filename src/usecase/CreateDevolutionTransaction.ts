@@ -1,5 +1,3 @@
-import Item from '../core/entity/Item';
-import User from '../core/entity/User';
 import ItemRepository from '../infra/repository/ItemRepository';
 import ITemTrasactionsInterface from '../infra/repository/ItemTrasactions';
 import Transaction, { TransactionEnum } from '../core/entity/Transaction';
@@ -11,7 +9,10 @@ export interface CreateDevolutionTrasactionParams {
 export default class CreateDevolutionTransaction {
   itemRepsitory: ItemRepository;
   transactionRepository: ITemTrasactionsInterface;
-  constructor({ itemRepository, transactionRepository }: CreateDevolutionTrasactionParams) {
+  constructor({
+    itemRepository,
+    transactionRepository,
+  }: CreateDevolutionTrasactionParams) {
     this.itemRepsitory = itemRepository;
     this.transactionRepository = transactionRepository;
   }
@@ -21,6 +22,10 @@ export default class CreateDevolutionTransaction {
       this.transactionRepository.lastTrasactionState(transaction.item),
       this.itemRepsitory.find(transaction.item),
     ]);
+
+    if (!hasbeenItem) {
+      throw new Error('Item is not avaliable');
+    }
 
     if (!lastItemTransaction) {
       throw new Error('Item shoud be not devolev because is not loan');
@@ -32,7 +37,10 @@ export default class CreateDevolutionTransaction {
       );
     }
 
-    if (!transaction.user.isAdmin && lastItemTransaction.user.id != transaction.user.id) {
+    if (
+      !transaction.user.isAdmin &&
+      lastItemTransaction.user.id != transaction.user.id
+    ) {
       throw new Error(
         `User(${transaction.user.name}/${transaction.user.id}) not be Devolution because is not user tham loan`
       );
@@ -41,7 +49,9 @@ export default class CreateDevolutionTransaction {
     if (transaction.status != TransactionEnum.Devolution) {
       transaction.status = TransactionEnum.Devolution;
     }
-    const result = await this.transactionRepository.createTransaction(transaction);
+    const result = await this.transactionRepository.createTransaction(
+      transaction
+    );
     return result;
   }
 }
