@@ -42,7 +42,7 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 - [x] deve ser sempre associado a um storage
 - [x] o nome é obrigatório
 - [x] não pode exceder um storage
-- [] o storage indicado deve estar disponivél
+- [x] o storage indicado deve estar disponivél
 
 ### storage
 
