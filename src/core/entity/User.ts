@@ -1,12 +1,5 @@
 import BasicEntity from './BasicEntity';
-
-export interface UserObjectParams {
-  id?: string;
-  name: string;
-  email: string;
-  isAdmin?: boolean;
-}
-
+import { UserObjectParams } from '../../adapters/User';
 export default class User extends BasicEntity {
   name: string;
   email: string;
