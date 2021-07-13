@@ -12,7 +12,7 @@ export interface CreateLoanParams {
 export interface CreateLoanExecuteParams {
   itemId: string;
   userId: string;
-  status: TransactionEnum;
+  status?: TransactionEnum;
 }
 
 export default class CreateLoan {
@@ -32,7 +32,7 @@ export default class CreateLoan {
   async execute({
     itemId,
     userId,
-    status,
+    status = TransactionEnum.Loan,
   }: CreateLoanExecuteParams): Promise<Transaction> {
     const [item, user, lastItemTransaction] = await Promise.all([
       this.itemRepository.find(itemId),

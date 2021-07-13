@@ -3,7 +3,7 @@ import ItemTrasactionsRepository from '../ItemTrasactionsRepository';
 import { ItemObjectParams } from '../../../adapters/Item';
 import TransactionAdapter from '../../../adapters/Transaction';
 import { UserObjectParams } from '../../../adapters/User';
-export default class ItemTrajnsactionRepositoryInMemory
+export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
   data: any[] = [
