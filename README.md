@@ -58,11 +58,10 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 
 ### transação
 
-- [] possui um item de referência
-- [] possui um usuário de referẽncia
+- [x] possui um item de referência
+- [x] possui um usuário de referẽncia
 - Retirada
   - [] não altera a quantidade de itens no storage quando for uma retirada
-  - [] possui uma data de expiração (limite)
 - Devolução
   - [] somente quem retirou ou um admin pode devolver o item
 

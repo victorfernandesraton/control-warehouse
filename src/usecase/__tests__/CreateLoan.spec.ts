@@ -38,4 +38,73 @@ describe('CreateLoan', () => {
     expect(data.status).toBe(TransactionEnum.Loan);
     expect(itemTrasactionsRepository.data).toHaveLength(2);
   });
+
+  test('shoud be not create loan because item is have been loan', async () => {
+    const itemRepository = new ItemRepositoryInMemory();
+    const userRepository = new UserRepostoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+
+    const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
+    const itemId = '423a3d8c-9d25-492e-82ae-9c1573bc9b3e';
+
+    const usecase = new CreateLoan({
+      itemRepository,
+      userRepository,
+      itemTrasactionsRepository,
+    });
+
+    await expect(usecase.execute({ userId, itemId })).rejects.toThrowError(
+      `Cannot execute transaction because item (${itemId} is been unvaliable`
+    );
+    expect(itemTrasactionsRepository.data).toHaveLength(1);
+  });
+
+  test('shoud be not create loan because item is not found', async () => {
+    const itemRepository = new ItemRepositoryInMemory();
+    const userRepository = new UserRepostoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+
+    const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
+    const item = {
+      id: 'ba2b481c-41a4-4e95-ad69-f0600b258488',
+      name: 'Chave de fenda n4',
+      description: 'Uma chave de fenda',
+      tag: ['chave', 'proteção elétrica'],
+      storage: {
+        name: 'Caixa de cahevs de fenda',
+        status: 0,
+        capacity: 10,
+        id: '03061a24-7ec5-4f21-9563-3611e27da429',
+      },
+    };
+    const usecase = new CreateLoan({
+      itemRepository,
+      userRepository,
+      itemTrasactionsRepository,
+    });
+
+    await expect(
+      usecase.execute({ userId, itemId: item.id })
+    ).rejects.toThrowError(`Item (${item.id} is not found`);
+    expect(itemTrasactionsRepository.data).toHaveLength(1);
+  });
+  test('shoud be not create loan because user is not found', async () => {
+    const itemRepository = new ItemRepositoryInMemory();
+    const userRepository = new UserRepostoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+
+    const userId = 'd1236519-2124-475a-9c45-fab829c13ac';
+    const itemId = '423a3d8c-9d25-492e-82ae-9c1573bc9b3e';
+
+    const usecase = new CreateLoan({
+      itemRepository,
+      userRepository,
+      itemTrasactionsRepository,
+    });
+
+    await expect(usecase.execute({ userId, itemId })).rejects.toThrowError(
+      `User (${userId} is not found`
+    );
+    expect(itemTrasactionsRepository.data).toHaveLength(1);
+  });
 });
