@@ -1,13 +1,6 @@
 import BasicEntity from './BasicEntity';
 import Storage from './Storage';
-export interface ItemObjectParams {
-  id?: string;
-  name: string;
-  storage: Storage;
-  description?: string;
-  tag?: string[];
-}
-
+import { ItemObjectParams } from '../../adapters/Item';
 export default class Item extends BasicEntity {
   name: string;
   description?: string;

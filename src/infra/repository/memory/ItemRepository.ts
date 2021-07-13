@@ -1,3 +1,4 @@
+import ItemAdapter, { ItemObjectParams } from '../../../adapters/Item';
 import Item from '../../../core/entity/Item';
 import Storage from '../../../core/entity/Storage';
 import ItemRepository from '../ItemRepository';
@@ -18,15 +19,16 @@ export default class ItemRepositoryInMemory implements ItemRepository {
     },
   ];
 
-  createItem(item: Item): Promise<Item> {
-    this.data = [...this.data, item];
-    return Promise.resolve(item);
+  createItem(item: ItemObjectParams): Promise<Item> {
+    const newItem = ItemAdapter.create(item);
+    this.data = [...this.data, newItem];
+    return Promise.resolve(newItem);
   }
   find(item: Item): Promise<Item> {
     return Promise.resolve(this.data.find((i) => item.id == i.id));
   }
-  findByStorage(storage: Storage): Promise<Item[]> {
-    const itens = this.data.filter((item) => storage.id == item.storage.id);
+  findByStorage(id: string): Promise<Item[]> {
+    const itens = this.data.filter((item) => id == item.storage.id);
     return Promise.resolve(itens);
   }
 }

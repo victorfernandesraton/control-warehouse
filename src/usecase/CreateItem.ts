@@ -2,11 +2,18 @@ import Item from '../core/entity/Item';
 import { StorageStatusEnum } from '../core/entity/Storage';
 import ItemRepository from '../infra/repository/ItemRepository';
 import StorageRepository from '../infra/repository/StorageRepository';
+import { ItemObjectParams } from '../adapters/Item';
 
 export interface CreateItemParams {
   itemRepository: ItemRepository;
   storageRepository: StorageRepository;
 }
+
+export interface CreateItemExecuteParams {
+  item: ItemObjectParams;
+  storageId: string;
+}
+
 export default class CreateItem {
   itemRepository: ItemRepository;
   storageRepository: StorageRepository;
@@ -15,10 +22,10 @@ export default class CreateItem {
     this.storageRepository = storageRepository;
   }
 
-  async execute(item: Item): Promise<Item> {
+  async execute({ item, storageId }: CreateItemExecuteParams): Promise<Item> {
     const [storage, itensByStorage] = await Promise.all([
-      this.storageRepository.find(item.storage),
-      this.itemRepository.findByStorage(item.storage),
+      this.storageRepository.find(storageId),
+      this.itemRepository.findByStorage(storageId),
     ]);
 
     if (!storage || storage.status === undefined || storage.status === null) {
@@ -50,8 +57,9 @@ export default class CreateItem {
       await this.storageRepository.updateStorage(storage);
     }
 
-    const createdItem = await this.itemRepository.createItem(item);
-
-    return createdItem;
+    return await this.itemRepository.createItem({
+      ...item,
+      storage,
+    });
   }
 }

@@ -11,8 +11,8 @@ export default class StorageRepositoryInMemory implements StorageRepository {
     },
   ];
 
-  find(storage: Storage): Promise<Storage> {
-    const data = this.data.find((item) => item.id == storage.id);
+  find(id: string): Promise<Storage> {
+    const data = this.data.find((item) => item.id == id);
     if (data) {
       return Promise.resolve(data);
     }
@@ -23,9 +23,11 @@ export default class StorageRepositoryInMemory implements StorageRepository {
     return Promise.resolve(storage);
   }
   async updateStorage(storage: Storage): Promise<Storage> {
-    const newStorage = await this.find(storage);
-    this.data.filter((item) => item.id !== storage?.id);
-    this.data.push({ ...storage });
+    const newStorage = await this.find(storage.id);
+    if (newStorage) {
+      this.data.filter((item) => item.id !== storage?.id);
+      this.data.push({ ...storage });
+    }
     return Promise.resolve(newStorage);
   }
 }
