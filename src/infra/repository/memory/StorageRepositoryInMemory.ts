@@ -1,4 +1,5 @@
-import Storage from '../../../core/entity/Storage';
+import StorageAdapter from '../../../adapters/Storage';
+import Storage, { StorageObjectParams } from '../../../core/entity/Storage';
 import StorageRepository from '../StorageRepository';
 export default class StorageRepositoryInMemory implements StorageRepository {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,9 +19,20 @@ export default class StorageRepositoryInMemory implements StorageRepository {
     }
     return Promise.resolve(null);
   }
-  createStorage(storage: Storage): Promise<Storage> {
-    this.data.push({ ...storage });
-    return Promise.resolve(storage);
+  createStorage({
+    name,
+    description,
+    status,
+    capacity,
+  }: StorageObjectParams): Promise<Storage> {
+    const newStorage = StorageAdapter.create({
+      name,
+      description,
+      status,
+      capacity,
+    });
+    this.data.push(newStorage);
+    return Promise.resolve(newStorage);
   }
   async updateStorage(storage: Storage): Promise<Storage> {
     const newStorage = await this.find(storage.id);

@@ -1,6 +1,5 @@
 import ItemAdapter, { ItemObjectParams } from '../../../adapters/Item';
 import Item from '../../../core/entity/Item';
-import Storage from '../../../core/entity/Storage';
 import ItemRepository from '../ItemRepository';
 export default class ItemRepositoryInMemory implements ItemRepository {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,8 +23,8 @@ export default class ItemRepositoryInMemory implements ItemRepository {
     this.data = [...this.data, newItem];
     return Promise.resolve(newItem);
   }
-  find(item: Item): Promise<Item> {
-    return Promise.resolve(this.data.find((i) => item.id == i.id));
+  find(id: string): Promise<Item> {
+    return Promise.resolve(this.data.find((i) => id == i.id));
   }
   findByStorage(id: string): Promise<Item[]> {
     const itens = this.data.filter((item) => id == item.storage.id);
