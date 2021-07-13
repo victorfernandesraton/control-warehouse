@@ -23,9 +23,7 @@ export default class ItemRepositoryInMemory implements ItemRepository {
     return Promise.resolve(item);
   }
   find(item: Item): Promise<Item> {
-    return Promise.resolve(
-      new Item({ ...this.data.find((i) => item.id == i.id) })
-    );
+    return Promise.resolve(this.data.find((i) => item.id == i.id));
   }
   findByStorage(storage: Storage): Promise<Item[]> {
     const itens = this.data.filter((item) => storage.id == item.storage.id);
