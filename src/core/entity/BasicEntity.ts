@@ -15,7 +15,7 @@ export default class BasicEntity {
     this.updatedAt = new Date(Date.now());
   }
 
-  public updateEntity() {
+  public updateEntity(): void {
     this.updatedAt = new Date(Date.now());
   }
 }
