@@ -2,6 +2,7 @@ import Item from '../../../core/entity/Item';
 import Storage from '../../../core/entity/Storage';
 import ItemRepository from '../ItemRepository';
 export default class ItemRepositoryInMemory implements ItemRepository {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[] = [
     {
       id: '423a3d8c-9d25-492e-82ae-9c1573bc9b3e',

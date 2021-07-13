@@ -21,12 +21,22 @@ export default class CreateItem {
       this.itemRepository.findByStorage(item.storage),
     ]);
 
-    if (!storage || ![StorageStatusEnum.avaliable].includes(storage?.status)) {
-      throw new Error('storage is not avaliable');
+    if (!storage || storage.status === undefined || storage.status === null) {
+      throw new Error('storage not found');
+    }
+
+    if (![StorageStatusEnum.avaliable].includes(storage?.status)) {
+      if (storage?.status === StorageStatusEnum.full) {
+        throw new Error(
+          `storage is full ${storage.name} capacity ${storage.capacity} and have ${itensByStorage.length}`
+        );
+      } else {
+        throw new Error('storage is not avaliable');
+      }
     }
 
     if (itensByStorage.length + 1 > storage.capacity || !storage.capacity) {
-      if (storage.status == StorageStatusEnum.avaliable) {
+      if (storage.status === StorageStatusEnum.avaliable) {
         storage.status = StorageStatusEnum.full;
         await this.storageRepository.updateStorage(storage);
       }
@@ -35,7 +45,7 @@ export default class CreateItem {
       );
     }
 
-    if (itensByStorage.length + 1 == storage.capacity) {
+    if (itensByStorage.length + 1 === storage.capacity) {
       storage.status = StorageStatusEnum.full;
       await this.storageRepository.updateStorage(storage);
     }

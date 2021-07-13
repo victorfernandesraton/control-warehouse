@@ -1,6 +1,7 @@
 import Storage from '../../../core/entity/Storage';
 import StorageRepository from '../StorageRepository';
 export default class StorageRepositoryInMemory implements StorageRepository {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[] = [
     {
       name: 'Caixa de cahevs de fenda',
@@ -11,9 +12,11 @@ export default class StorageRepositoryInMemory implements StorageRepository {
   ];
 
   find(storage: Storage): Promise<Storage> {
-    return Promise.resolve(
-      new Storage({ ...this.data.find((item) => item.id === storage.id) })
-    );
+    const data = this.data.find((item) => item.id == storage.id);
+    if (data) {
+      return Promise.resolve(data);
+    }
+    return Promise.resolve(null);
   }
   createStorage(storage: Storage): Promise<Storage> {
     this.data.push({ ...storage });

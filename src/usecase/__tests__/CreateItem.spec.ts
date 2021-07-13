@@ -2,7 +2,7 @@ import ItemRepositoryInMemory from '../../infra/repository/memory/ItemRepository
 import StorageRepositoryInMemory from '../../infra/repository/memory/StorageRepositoryInMemory';
 import CreateItem from '../CreateItem';
 import Item from '../../core/entity/Item';
-import Storage from '../../core/entity/Storage';
+import Storage, { StorageStatusEnum } from '../../core/entity/Storage';
 
 describe('CreateItem', () => {
   test('shoud be createItem', async () => {
@@ -109,7 +109,7 @@ describe('CreateItem', () => {
         id: '53c0ba3d-0258-42c3-9110-ed509e1d51df',
         name: 'caixa de chave philips',
         status: 0,
-        capacity: 1,
+        capacity: 0,
       }),
     });
 
@@ -121,6 +121,65 @@ describe('CreateItem', () => {
     await expect(usecase.execute(item)).rejects.toThrowError(
       'storage is full caixa de chave philips capacity 0 and have 0'
     );
+    expect(itemRepository.data).toHaveLength(1);
+  });
+
+  test('shoud be not create item because storage is unvaliable', async () => {
+    const itemRepository = new ItemRepositoryInMemory();
+    const storageRepository = new StorageRepositoryInMemory();
+    storageRepository.data = [
+      ...storageRepository.data,
+      {
+        id: '1c651103-886f-4775-a725-0bf9de232cc8',
+        name: 'caixa de resistores',
+        status: StorageStatusEnum.unavaliable,
+        capacity: 10,
+      },
+    ];
+    const item = new Item({
+      name: 'resistor de 5Ohms',
+      storage: new Storage({
+        id: '1c651103-886f-4775-a725-0bf9de232cc8',
+        name: 'caixa de resistores',
+        status: StorageStatusEnum.unavaliable,
+        capacity: 10,
+      }),
+    });
+
+    const usecase = new CreateItem({
+      itemRepository,
+      storageRepository,
+    });
+
+    await expect(usecase.execute(item)).rejects.toThrowError(
+      'storage is not avaliable'
+    );
+
+    expect(itemRepository.data).toHaveLength(1);
+  });
+  test('shoud be not create item because storage is not found', async () => {
+    const itemRepository = new ItemRepositoryInMemory();
+    const storageRepository = new StorageRepositoryInMemory();
+
+    const item = new Item({
+      name: 'resistor de 5Ohms',
+      storage: new Storage({
+        id: '1c651103-886f-477-',
+        name: 'caixa de resistores',
+        status: StorageStatusEnum.unavaliable,
+        capacity: 10,
+      }),
+    });
+
+    const usecase = new CreateItem({
+      itemRepository,
+      storageRepository,
+    });
+
+    await expect(usecase.execute(item)).rejects.toThrowError(
+      'storage not found'
+    );
+
     expect(itemRepository.data).toHaveLength(1);
   });
 });
