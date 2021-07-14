@@ -6,12 +6,18 @@ export interface TransactionObjectParams {
   item: ItemObjectParams;
   user: UserObjectParams;
   status: TransactionEnum;
+  id?: string;
 }
 
 export default class TransactionAdapter {
-  static create({ item, user, status }: TransactionObjectParams): Transaction {
+  static create({
+    item,
+    user,
+    status,
+    id,
+  }: TransactionObjectParams): Transaction {
     const newItem = ItemAdapter.create(item);
     const newUser = UserAdapter.create(user);
-    return new Transaction({ item: newItem, user: newUser, status });
+    return new Transaction({ item: newItem, user: newUser, status, id });
   }
 }

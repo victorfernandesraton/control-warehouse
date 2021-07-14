@@ -8,6 +8,7 @@ export default class ItemTransactionRepositoryInMemory
 {
   data: any[] = [
     {
+      id: '06fd7679-ad8a-4823-bab0-d709daae8b33',
       item: {
         id: '423a3d8c-9d25-492e-82ae-9c1573bc9b3e',
         name: 'Chave de fenda n5',
@@ -44,5 +45,29 @@ export default class ItemTransactionRepositoryInMemory
     const data = this.data.filter((transaction) => transaction.item.id === id);
     const last = data.sort((a, b) => a.createdAt - b.createdAt)?.[0];
     return Promise.resolve(last);
+  }
+  async loanTransactionsByUser(id: string): Promise<Transaction[]> {
+    const itens = Array.from(
+      new Set(this.data.map((i) => ({ ...i?.item })).filter((i) => i != null))
+    );
+
+    const lastTransactionsByItem = await Promise.all(
+      itens.map(async (i) => {
+        return await this.lastTrasaction(i.id);
+      })
+    );
+
+    const userTransactionsLoan = lastTransactionsByItem
+      .filter((i) => i?.user?.id === id && i.status === TransactionEnum.Loan)
+      .map(TransactionAdapter.create);
+
+    return Promise.resolve(userTransactionsLoan);
+  }
+
+  devolutionTransactionsByUser(id: string): Promise<Transaction[]> {
+    throw new Error('Method not implemented.');
+  }
+  avaliableItens(): Promise<Transaction[]> {
+    throw new Error('Method not implemented.');
   }
 }

@@ -8,4 +8,7 @@ export default interface ItemTrasactionsRepository {
     user: any
   ): Promise<Transaction>;
   lastTrasaction(id: string): Promise<Transaction>;
+  loanTransactionsByUser(id: string): Promise<Transaction[]>;
+  devolutionTransactionsByUser(id: string): Promise<Transaction[]>;
+  avaliableItens(): Promise<Transaction[]>;
 }

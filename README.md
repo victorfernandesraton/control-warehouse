@@ -64,6 +64,10 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
   - [x] não altera a quantidade de itens no storage quando for uma retirada
 - Devolução
   - [] somente quem retirou ou um admin pode devolver o item
+- [x] Listar todos as retiradas de um usuário
+- [] listar todas as devoluções recentes de um usuário
+- [] listar todas os items em empréstimo a um usuário (disponiveis para devolver)
+- [] buscar todos os itens disponiveis para a retirada
 
 ### Usuário
 
