@@ -61,7 +61,7 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 - [x] possui um item de referência
 - [x] possui um usuário de referẽncia
 - Retirada
-  - [] não altera a quantidade de itens no storage quando for uma retirada
+  - [x] não altera a quantidade de itens no storage quando for uma retirada
 - Devolução
   - [] somente quem retirou ou um admin pode devolver o item
 
