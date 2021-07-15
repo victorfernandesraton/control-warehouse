@@ -1,4 +1,3 @@
-import { TransactionEnum } from '../../core/entity/Transaction';
 import ItemTransactionRepositoryInMemory from '../../infra/repository/memory/ItemTransactionRepository';
 import UserRepostoryInMemory from '../../infra/repository/memory/UserRepository';
 import ListLoanByUser from '../ListLoanByUser';
@@ -53,6 +52,68 @@ describe('ListLoanByUser', () => {
     const data = await usecase.execute(userId);
     expect(data).toHaveLength(0);
   });
-  test('shoud be 0 loan for user because user has never been create transaction', () => {});
-  test('shoud be 0 loan for user because user has create devolution transactions only', () => {});
+  test('shoud be 0 loan for user because user has never been create transaction', async () => {
+    const user = {
+      id: '730079df-547c-4844-ac04-6f181801ab80',
+      name: 'João Machado',
+      email: 'j_machado@gmail.com',
+    };
+    const userRepository = new UserRepostoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    userRepository.data = [...userRepository.data, user];
+
+    const usecase = new ListLoanByUser({
+      userRepository,
+      itemTransactionRepository,
+    });
+
+    const userId = user.id;
+
+    const data = await usecase.execute(userId);
+    expect(data).toHaveLength(0);
+  });
+  test('shoud be 0 loan for user because user has create devolution transactions only', async () => {
+    const user = {
+      id: '730079df-547c-4844-ac04-6f181801ab80',
+      name: 'João Machado',
+      email: 'j_machado@gmail.com',
+      isAdmin: true,
+    };
+    const userRepository = new UserRepostoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    userRepository.data = [...userRepository.data, user];
+    itemTransactionRepository.data = [
+      ...itemTransactionRepository.data,
+      {
+        id: '30c8386c-2b8f-4dbe-af63-210466154946',
+
+        item: {
+          id: '423a3d8c-9d25-492e-82ae-9c1573bc9b3e',
+          name: 'Chave de fenda n5',
+          description: 'Uma chave de fenda',
+          tag: ['chave', 'proteção elétrica'],
+          storage: {
+            name: 'Caixa de cahevs de fenda',
+            status: 0,
+            capacity: 10,
+            id: '03061a24-7ec5-4f21-9563-3611e27da429',
+          },
+        },
+        user,
+        createdAt: '2023-03-22T03:00:01.000Z',
+        updatedAt: '2023-03-22T03:00:01.000Z',
+        status: 1,
+      },
+    ];
+
+    const usecase = new ListLoanByUser({
+      userRepository,
+      itemTransactionRepository,
+    });
+
+    const userId = user.id;
+
+    const data = await usecase.execute(userId);
+    expect(data).toHaveLength(0);
+  });
 });
