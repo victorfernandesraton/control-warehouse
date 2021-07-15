@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+      "name": "Victor Raton",
+      "email": "vfbraton@gmail.com"
+    },
+    {
+      "id": "eacca3d6-177b-41c9-822e-736c72949677",
+      "name": "Paulo",
+      "email": "paulo_jose@gmail.com"
+    },
+    {
+      "id": "730079df-547c-4844-ac04-6f181801ab80",
+      "name": "João Machado",
+      "email": "j_machado@gmail.com",
+      "isAdmin": true
+    }
+  ]
+}
