@@ -18,13 +18,21 @@ export default class ListLoanByUser {
     this.userRepository = userRepository;
   }
 
-  async execute(userId: string): Promise<Transaction[]> {
+  async execute(
+    userId: string,
+    limit?: number,
+    beforeAt?: string
+  ): Promise<Transaction[]> {
     const user = await this.userRepository.find(userId);
 
     if (!user) {
       throw new Error(`User ${userId} not found`);
     }
 
-    return await this.itemTransactionRepository.loanTransactionsByUser(user.id);
+    return await this.itemTransactionRepository.loanTransactionsByUser(
+      user.id,
+      limit,
+      beforeAt
+    );
   }
 }

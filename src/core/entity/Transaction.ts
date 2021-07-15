@@ -1,6 +1,4 @@
-import ItemAdapter from '../../adapters/Item';
 import { TransactionObjectParams } from '../../adapters/Transaction';
-import UserAdapter from '../../adapters/User';
 import BasicEntity from './BasicEntity';
 import Item from './Item';
 import User from './User';

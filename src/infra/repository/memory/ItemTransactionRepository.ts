@@ -27,7 +27,11 @@ export default class ItemTransactionRepositoryInMemory
     );
     return Promise.resolve(transactions[0]);
   }
-  async loanTransactionsByUser(id: string): Promise<Transaction[]> {
+  async loanTransactionsByUser(
+    id: string,
+    limit = 5,
+    beforeAt?: string
+  ): Promise<Transaction[]> {
     const itens = Array.from(
       new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
     );
@@ -42,7 +46,15 @@ export default class ItemTransactionRepositoryInMemory
       .filter((i) => i?.user?.id === id && i.status === TransactionEnum.Loan)
       .map(TransactionAdapter.create);
 
-    return Promise.resolve(userTransactionsLoan);
+    const itemBefore = beforeAt
+      ? userTransactionsLoan.findIndex(
+          (transaction) => transaction.id === beforeAt
+        )
+      : 0;
+
+    return Promise.resolve(
+      userTransactionsLoan.slice(itemBefore, limit + itemBefore ?? Infinity)
+    );
   }
 
   devolutionTransactionsByUser(id: string): Promise<Transaction[]> {
