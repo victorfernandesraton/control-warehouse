@@ -7,8 +7,8 @@ export interface TransactionObjectParams {
   user: UserObjectParams;
   status: TransactionEnum;
   id?: string;
-  createAt?: string;
-  updateAt?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 export default class TransactionAdapter {
@@ -17,8 +17,8 @@ export default class TransactionAdapter {
     user,
     status,
     id,
-    createAt,
-    updateAt,
+    createdAt,
+    updatedAt,
   }: TransactionObjectParams): Transaction {
     const newItem = ItemAdapter.create(item);
     const newUser = UserAdapter.create(user);
@@ -27,8 +27,8 @@ export default class TransactionAdapter {
       user: newUser,
       status,
       id,
-      createAt,
-      updateAt,
+      createdAt,
+      updatedAt,
     });
   }
 }

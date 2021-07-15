@@ -19,9 +19,13 @@ export default class ItemTransactionRepositoryInMemory
     return Promise.resolve(transaction);
   }
   lastTrasaction(id: string): Promise<Transaction> {
-    const data = this.data.filter((transaction) => transaction.item.id === id);
-    const last = data.sort((a, b) => a.createdAt - b.createdAt)?.[0];
-    return Promise.resolve(last);
+    const data = this.data
+      .filter((transaction) => transaction.item.id === id)
+      .map(TransactionAdapter.create);
+    const transactions = data.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+    return Promise.resolve(transactions[0]);
   }
   async loanTransactionsByUser(id: string): Promise<Transaction[]> {
     const itens = Array.from(

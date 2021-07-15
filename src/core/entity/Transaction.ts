@@ -26,14 +26,22 @@ export default class Transaction extends BasicEntity {
     user,
     status,
     id,
-    createAt,
-    updateAt,
+    createdAt,
+    updatedAt,
   }: TransactionParams) {
     super(id);
     this.item = item;
     this.user = user;
     this.status = status ?? TransactionEnum.Loan;
-    this.createdAt = new Date(createAt) ?? new Date(Date.now());
-    this.updatedAt = new Date(updateAt) ?? new Date(Date.now());
+    this.createdAt = createdAt
+      ? typeof createdAt === 'string'
+        ? new Date(Date.parse(createdAt))
+        : createdAt
+      : new Date(Date.now());
+    this.updatedAt = updatedAt
+      ? typeof updatedAt === 'string'
+        ? new Date(Date.parse(updatedAt))
+        : updatedAt
+      : new Date(Date.now());
   }
 }
