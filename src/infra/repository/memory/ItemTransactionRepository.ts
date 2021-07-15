@@ -3,34 +3,11 @@ import ItemTrasactionsRepository from '../ItemTrasactionsRepository';
 import { ItemObjectParams } from '../../../adapters/Item';
 import TransactionAdapter from '../../../adapters/Transaction';
 import { UserObjectParams } from '../../../adapters/User';
+import { data } from './__mocks__/ItemTransactions.json';
 export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
-  data: any[] = [
-    {
-      id: '06fd7679-ad8a-4823-bab0-d709daae8b33',
-      item: {
-        id: '423a3d8c-9d25-492e-82ae-9c1573bc9b3e',
-        name: 'Chave de fenda n5',
-        description: 'Uma chave de fenda',
-        tag: ['chave', 'proteção elétrica'],
-        storage: {
-          name: 'Caixa de cahevs de fenda',
-          status: 0,
-          capacity: 10,
-          id: '03061a24-7ec5-4f21-9563-3611e27da429',
-        },
-      },
-      user: {
-        id: 'd1236519-2124-475a-9c45-fab829ec13ac',
-        name: 'Victor Raton',
-        email: 'vfbraton@gmail.com',
-      },
-      createdAt: '2021-01-22T03:00:00.000Z',
-      updatedAt: '2021-01-22T03:00:00.000Z',
-      status: TransactionEnum.Loan,
-    },
-  ];
+  data: any[] = [data[0]];
 
   createTransaction(
     item: ItemObjectParams,
@@ -48,12 +25,12 @@ export default class ItemTransactionRepositoryInMemory
   }
   async loanTransactionsByUser(id: string): Promise<Transaction[]> {
     const itens = Array.from(
-      new Set(this.data.map((i) => ({ ...i?.item })).filter((i) => i != null))
+      new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
     );
 
     const lastTransactionsByItem = await Promise.all(
       itens.map(async (i) => {
-        return await this.lastTrasaction(i.id);
+        return await this.lastTrasaction(i);
       })
     );
 

@@ -1,0 +1,160 @@
+{
+  "data": [
+    {
+      "id": "06fd7679-ad8a-4823-bab0-d709daae8b33",
+      "item": {
+        "id": "423a3d8c-9d25-492e-82ae-9c1573bc9b3e",
+        "name": "Chave de fenda n5",
+        "description": "Uma chave de fenda",
+        "tag": ["chave", "proteção elétrica"],
+        "storage": {
+          "name": "Caixa de cahevs de fenda",
+          "status": 0,
+          "capacity": 10,
+          "id": "03061a24-7ec5-4f21-9563-3611e27da429"
+        }
+      },
+      "user": {
+        "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+        "name": "Victor Raton",
+        "email": "vfbraton@gmail.com"
+      },
+      "createdAt": "2021-01-22T03:00:00.000Z",
+      "updatedAt": "2021-01-22T03:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "5f881d43-f7e5-4d14-ae3d-3eac3dbe47ac",
+      "item": {
+        "id": "423a3d8c-9d25-492e-82ae-9c1573bc9b3e",
+        "name": "Chave de fenda n5",
+        "description": "Uma chave de fenda",
+        "tag": ["chave", "proteção elétrica"],
+        "storage": {
+          "name": "Caixa de cahevs de fenda",
+          "status": 0,
+          "capacity": 10,
+          "id": "03061a24-7ec5-4f21-9563-3611e27da429"
+        }
+      },
+      "user": {
+        "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+        "name": "Victor Raton",
+        "email": "vfbraton@gmail.com"
+      },
+      "createdAt": "2021-01-22T03:00:01.000Z",
+      "updatedAt": "2021-01-22T03:00:01.000Z",
+      "status": 1
+    },
+    {
+      "id": "d2636f17-3043-464b-b088-a177d02cbde5",
+      "item": {
+        "id": "46ed59e9-2af9-4214-b525-d349f6041440",
+        "name": "Chave de fenda n3",
+        "description": "Uma chave de fenda",
+        "storage": {
+          "name": "Caixa de cahevs de fenda",
+          "status": 0,
+          "capacity": 10,
+          "id": "03061a24-7ec5-4f21-9563-3611e27da429"
+        }
+      },
+      "user": {
+        "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+        "name": "Victor Raton",
+        "email": "vfbraton@gmail.com"
+      },
+      "createdAt": "2021-01-23T03:00:00.000Z",
+      "updatedAt": "2021-01-23T03:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "1820e68b-fe55-4743-9d8b-86e55ed41f28",
+      "item": {
+        "id": "bd7c6fcd-bb7d-4192-9252-05380dcdfd53",
+        "name": "Alicate de corte n3",
+        "tag": ["proteção elétrica"],
+        "storage": {
+          "name": "Caixa de allicates",
+          "status": 0,
+          "capacity": 10,
+          "id": "ab67db0c-9aeb-465a-8cf0-8949015ecbb9"
+        }
+      },
+      "user": {
+        "id": "eacca3d6-177b-41c9-822e-736c72949677",
+        "name": "Paulo",
+        "email": "paulo_jose@gmail.com"
+      },
+      "createdAt": "2021-01-24T01:00:00.000Z",
+      "updatedAt": "2021-01-24T01:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "1820e68b-fe55-4743-9d8b-86e55ed41f28",
+      "item": {
+        "id": "bd7c6fcd-bb7d-4192-9252-05380dcdfd53",
+        "name": "Alicate de corte n3",
+        "tag": ["proteção elétrica"],
+        "storage": {
+          "name": "Caixa de allicates",
+          "status": 0,
+          "capacity": 10,
+          "id": "ab67db0c-9aeb-465a-8cf0-8949015ecbb9"
+        }
+      },
+      "user": {
+        "id": "eacca3d6-177b-41c9-822e-736c72949677",
+        "name": "Paulo",
+        "email": "paulo_jose@gmail.com"
+      },
+      "createdAt": "2021-01-20T03:00:00.000Z",
+      "updatedAt": "2021-01-20T03:00:00.000Z",
+      "status": 1
+    },
+    {
+      "id": "1820e68b-fe55-4743-9d8b-86e55ed41f28",
+      "item": {
+        "id": "bd7c6fcd-bb7d-4192-9252-05380dcdfd53",
+        "name": "Alicate de corte n3",
+        "tag": ["proteção elétrica"],
+        "storage": {
+          "name": "Caixa de allicates",
+          "status": 0,
+          "capacity": 10,
+          "id": "ab67db0c-9aeb-465a-8cf0-8949015ecbb9"
+        }
+      },
+      "user": {
+        "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+        "name": "Victor Raton",
+        "email": "vfbraton@gmail.com"
+      },
+      "createdAt": "2021-01-22T03:00:00.000Z",
+      "updatedAt": "2021-01-22T03:00:00.000Z",
+      "status": 0
+    },
+    {
+      "id": "1820e68b-fe55-4743-9d8b-86e55ed41f28",
+      "item": {
+        "id": "bd7c6fcd-bb7d-4192-9252-05380dcdfd53",
+        "name": "Alicate de corte n3",
+        "tag": ["proteção elétrica"],
+        "storage": {
+          "name": "Caixa de allicates",
+          "status": 0,
+          "capacity": 10,
+          "id": "ab67db0c-9aeb-465a-8cf0-8949015ecbb9"
+        }
+      },
+      "user": {
+        "id": "d1236519-2124-475a-9c45-fab829ec13ac",
+        "name": "Victor Raton",
+        "email": "vfbraton@gmail.com"
+      },
+      "createdAt": "2021-02-02T06:00:00.000Z",
+      "updatedAt": "2021-02-02T06:00:00.000Z",
+      "status": 0
+    }
+  ]
+}
