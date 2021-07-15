@@ -1,11 +1,10 @@
 import Item from '../core/entity/Item';
-import Storage from '../core/entity/Storage';
-import StorageAdapter from './Storage';
+import StorageAdapter, { CreateStorageParams } from './Storage';
 
 export interface ItemObjectParams {
   id?: string;
   name: string;
-  storage?: Storage;
+  storage?: CreateStorageParams;
   description?: string;
   tag?: string[];
 }

@@ -14,21 +14,21 @@ export default class PaginationEntityAdapter {
     data: Array<T>,
     { after, limit }: PaginationEntityOptionsObjectParams
   ): PaginationEntity<T> {
-    const startsIn = data.findIndex((item) => item?.id === after) ?? 0;
-    const endsIn = startsIn + limit;
+    const startsIn = after ? data.findIndex((item) => item?.id === after) : 0;
+    const endsIn = startsIn > 0 ? startsIn + limit + 1 : startsIn + limit;
+
     const listData = data.slice(
-      startsIn > 0 ? startsIn - 1 : 0,
-      data.length > endsIn + 2 ? endsIn + 2 : data.length
+      startsIn > 0 ? startsIn : 0,
+      data.length >= endsIn + 1 ? endsIn + 1 : data.length
     );
 
-    const [head, ...finalData] = listData;
-    const end =
-      data.length === endsIn ? undefined : finalData.slice(-1)?.[0]?.id;
+    const head = after ? data[startsIn > 0 ? startsIn - 1 : 0]?.id : undefined;
+    const end = listData.length ? data[endsIn]?.id : undefined;
 
     return new PaginationEntity({
-      data: startsIn > -1 ? finalData : listData.slice(0, -1),
-      before: startsIn > 0 ? head?.id : undefined,
-      after: end,
+      data: startsIn > 0 ? listData : listData.slice(0, -1),
+      before: end,
+      after: head,
     });
   }
 

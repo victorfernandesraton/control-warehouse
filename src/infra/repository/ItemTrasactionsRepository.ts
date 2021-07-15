@@ -1,5 +1,6 @@
 import Transaction, { TransactionEnum } from '../../core/entity/Transaction';
 import { ItemObjectParams } from '../../adapters/Item';
+import PaginationEntity from '../../shared/utils/PaginationEntity';
 
 export default interface ItemTrasactionsRepository {
   createTransaction(
@@ -11,8 +12,8 @@ export default interface ItemTrasactionsRepository {
   loanTransactionsByUser(
     id: string,
     limit?: number,
-    beforeAt?: string
-  ): Promise<Transaction[]>;
+    afterAt?: string
+  ): Promise<PaginationEntity<Transaction>>;
   devolutionTransactionsByUser(id: string): Promise<Transaction[]>;
   avaliableItens(): Promise<Transaction[]>;
 }

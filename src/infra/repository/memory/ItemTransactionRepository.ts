@@ -4,6 +4,8 @@ import { ItemObjectParams } from '../../../adapters/Item';
 import TransactionAdapter from '../../../adapters/Transaction';
 import { UserObjectParams } from '../../../adapters/User';
 import { data } from './__mocks__/ItemTransactions.json';
+import PaginationEntity from '../../../shared/utils/PaginationEntity';
+import PaginationEntityAdapter from '../../../adapters/PaginationEntity';
 export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
@@ -30,8 +32,8 @@ export default class ItemTransactionRepositoryInMemory
   async loanTransactionsByUser(
     id: string,
     limit = 5,
-    beforeAt?: string
-  ): Promise<Transaction[]> {
+    afterAt?: string
+  ): Promise<PaginationEntity<Transaction>> {
     const itens = Array.from(
       new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
     );
@@ -46,14 +48,11 @@ export default class ItemTransactionRepositoryInMemory
       .filter((i) => i?.user?.id === id && i.status === TransactionEnum.Loan)
       .map(TransactionAdapter.create);
 
-    const itemBefore = beforeAt
-      ? userTransactionsLoan.findIndex(
-          (transaction) => transaction.id === beforeAt
-        )
-      : 0;
-
     return Promise.resolve(
-      userTransactionsLoan.slice(itemBefore, limit + itemBefore ?? Infinity)
+      PaginationEntityAdapter.createFormMemory(userTransactionsLoan, {
+        limit,
+        after: afterAt,
+      })
     );
   }
 

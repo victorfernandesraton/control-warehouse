@@ -13,7 +13,7 @@ describe('ListLoanByUser', () => {
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
     const transactionId = 'c360c863-0578-427a-9128-4418d4950d9b';
 
-    const data = await usecase.execute(userId);
+    const { data } = await usecase.execute(userId);
     expect(data).toHaveLength(1);
     expect(data?.[0].id).toBe(transactionId);
   });
@@ -28,7 +28,7 @@ describe('ListLoanByUser', () => {
     });
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
 
-    const data = await usecase.execute(userId);
+    const { data } = await usecase.execute(userId);
     expect(data).toHaveLength(3);
     expect(data[0].id == 'c360c863-0578-427a-9128-4418d4950d9b');
   });
@@ -43,7 +43,7 @@ describe('ListLoanByUser', () => {
     });
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
 
-    const data = await usecase.execute(userId, 2);
+    const { data } = await usecase.execute(userId, 2);
     expect(data).toHaveLength(2);
     expect(data[0].id == 'c360c863-0578-427a-9128-4418d4950d9b');
   });
@@ -64,7 +64,7 @@ describe('ListLoanByUser', () => {
     });
     const userId = user.id;
 
-    const data = await usecase.execute(userId);
+    const { data } = await usecase.execute(userId);
     expect(data).toHaveLength(0);
   });
   test('shoud be 0 loan for user because user has never been create transaction', async () => {
@@ -84,7 +84,7 @@ describe('ListLoanByUser', () => {
 
     const userId = user.id;
 
-    const data = await usecase.execute(userId);
+    const { data } = await usecase.execute(userId);
     expect(data).toHaveLength(0);
   });
   test('shoud be 0 loan for user because user has create devolution transactions only', async () => {
@@ -128,7 +128,7 @@ describe('ListLoanByUser', () => {
 
     const userId = user.id;
 
-    const data = await usecase.execute(userId);
+    const { data } = await usecase.execute(userId);
     expect(data).toHaveLength(0);
   });
   test('shoud be not ececute because user is not valid', async () => {

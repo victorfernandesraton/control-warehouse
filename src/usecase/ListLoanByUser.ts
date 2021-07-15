@@ -1,6 +1,7 @@
 import Transaction from '../core/entity/Transaction';
 import ItemTrasactionsRepository from '../infra/repository/ItemTrasactionsRepository';
 import UserRepository from '../infra/repository/UserRepository';
+import PaginationEntity from '../shared/utils/PaginationEntity';
 
 export interface ListLoanByUserParams {
   itemTransactionRepository: ItemTrasactionsRepository;
@@ -20,9 +21,9 @@ export default class ListLoanByUser {
 
   async execute(
     userId: string,
-    limit?: number,
-    beforeAt?: string
-  ): Promise<Transaction[]> {
+    limit = 5,
+    afterat?: string
+  ): Promise<PaginationEntity<Transaction>> {
     const user = await this.userRepository.find(userId);
 
     if (!user) {
@@ -32,7 +33,7 @@ export default class ListLoanByUser {
     return await this.itemTransactionRepository.loanTransactionsByUser(
       user.id,
       limit,
-      beforeAt
+      afterat
     );
   }
 }
