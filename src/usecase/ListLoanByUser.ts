@@ -22,7 +22,7 @@ export default class ListLoanByUser {
   async execute(
     userId: string,
     limit = 5,
-    afterat?: string
+    afterAt?: string
   ): Promise<PaginationEntity<Transaction>> {
     const user = await this.userRepository.find(userId);
 
@@ -33,7 +33,7 @@ export default class ListLoanByUser {
     return await this.itemTransactionRepository.loanTransactionsByUser(
       user.id,
       limit,
-      afterat
+      afterAt
     );
   }
 }
