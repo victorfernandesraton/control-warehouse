@@ -1,7 +1,9 @@
 import Transaction, { TransactionEnum } from '../../../core/entity/Transaction';
 import ItemTrasactionsRepository from '../ItemTrasactionsRepository';
 import { ItemObjectParams } from '../../../adapters/Item';
-import TransactionAdapter from '../../../adapters/Transaction';
+import TransactionAdapter, {
+  TransactionObjectParams,
+} from '../../../adapters/Transaction';
 import { UserObjectParams } from '../../../adapters/User';
 import { data } from './__mocks__/ItemTransactions.json';
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
@@ -9,7 +11,7 @@ import PaginationEntityAdapter from '../../../adapters/PaginationEntity';
 export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
-  data: any[] = [data[0]];
+  data: TransactionObjectParams[] = [data[0]];
 
   createTransaction(
     item: ItemObjectParams,
