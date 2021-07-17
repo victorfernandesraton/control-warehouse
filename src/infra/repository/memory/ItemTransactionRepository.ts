@@ -1,6 +1,6 @@
 import Transaction, { TransactionEnum } from '../../../core/entity/Transaction';
 import ItemTrasactionsRepository from '../ItemTrasactionsRepository';
-import { ItemObjectParams } from '../../../adapters/Item';
+import ItemAdapter, { ItemObjectParams } from '../../../adapters/Item';
 import TransactionAdapter, {
   TransactionObjectParams,
 } from '../../../adapters/Transaction';
@@ -8,11 +8,17 @@ import { UserObjectParams } from '../../../adapters/User';
 import { data } from './__mocks__/ItemTransactions.json';
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
 import PaginationEntityAdapter from '../../../adapters/PaginationEntity';
+import Item from '../../../core/entity/Item';
 export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
   data: TransactionObjectParams[] = [data[0]];
-
+  ItenAvaliableRepository;
+  protected uniqueItens(): string[] {
+    return Array.from(
+      new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
+    );
+  }
   createTransaction(
     item: ItemObjectParams,
     status: TransactionEnum,
@@ -31,14 +37,12 @@ export default class ItemTransactionRepositoryInMemory
     );
     return Promise.resolve(transactions[0]);
   }
-  async loanTransactionsByUser(
+  async lastLoanTransactionByUser(
     id: string,
     limit = 5,
     afterAt?: string
   ): Promise<PaginationEntity<Transaction>> {
-    const itens = Array.from(
-      new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
-    );
+    const itens = this.uniqueItens();
 
     const lastTransactionsByItem = await Promise.all(
       itens.map(async (i) => {
@@ -59,9 +63,6 @@ export default class ItemTransactionRepositoryInMemory
   }
 
   devolutionTransactionsByUser(id: string): Promise<Transaction[]> {
-    throw new Error('Method not implemented.');
-  }
-  avaliableItens(): Promise<Transaction[]> {
     throw new Error('Method not implemented.');
   }
 }

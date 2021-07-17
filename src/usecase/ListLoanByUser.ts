@@ -30,7 +30,7 @@ export default class ListLoanByUser {
       throw new Error(`User ${userId} not found`);
     }
 
-    return await this.itemTransactionRepository.loanTransactionsByUser(
+    return await this.itemTransactionRepository.lastLoanTransactionByUser(
       user.id,
       limit,
       afterAt
