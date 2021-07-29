@@ -1,14 +1,16 @@
-import Transaction, { TransactionEnum } from '../../../core/entity/Transaction';
 import ItemTrasactionsRepository from '../ItemTrasactionsRepository';
-import ItemAdapter, { ItemObjectParams } from '../../../adapters/Item';
+import Transaction, { TransactionEnum } from '../../../core/entity/Transaction';
+import { ItemObjectParams } from '../../../adapters/Item';
 import TransactionAdapter, {
   TransactionObjectParams,
 } from '../../../adapters/Transaction';
-import { UserObjectParams } from '../../../adapters/User';
-import { data } from './__mocks__/ItemTransactions.json';
+
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
 import PaginationEntityAdapter from '../../../adapters/PaginationEntity';
-import Item from '../../../core/entity/Item';
+
+import { UserObjectParams } from '../../../adapters/User';
+
+import { data } from './__mocks__/ItemTransactions.json';
 export default class ItemTransactionRepositoryInMemory
   implements ItemTrasactionsRepository
 {
@@ -61,8 +63,22 @@ export default class ItemTransactionRepositoryInMemory
       })
     );
   }
+  async itensInLoan(): Promise<Transaction[]> {
+    const itens = this.uniqueItens();
 
-  devolutionTransactionsByUser(id: string): Promise<Transaction[]> {
-    throw new Error('Method not implemented.');
+    const lastTransactionsByItem = await Promise.all(
+      itens.map(async (i) => {
+        return await this.lastTrasaction(i);
+      })
+    );
+
+    const transactions = lastTransactionsByItem.filter(
+      (transaction) =>
+        ![TransactionEnum.Canceled, TransactionEnum.Loan].includes(
+          transaction.status
+        )
+    );
+
+    return Promise.resolve(transactions);
   }
 }

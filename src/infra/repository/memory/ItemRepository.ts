@@ -30,4 +30,9 @@ export default class ItemRepositoryInMemory implements ItemRepository {
     const itens = this.data.filter((item) => id == item.storage.id);
     return Promise.resolve(itens);
   }
+  findWithNotIn(ids: string[]): Promise<Item[]> {
+    const items = this.data.filter((item) => !ids.includes(item.id));
+
+    return Promise.resolve(items);
+  }
 }

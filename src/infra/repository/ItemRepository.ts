@@ -5,4 +5,5 @@ export default interface ItemRepository {
   createItem(item: ItemObjectParams): Promise<Item | null>;
   find(id: string): Promise<Item>;
   findByStorage(id: string): Promise<Item[]>;
+  findWithNotIn(ids: string[]): Promise<Item[]>;
 }
