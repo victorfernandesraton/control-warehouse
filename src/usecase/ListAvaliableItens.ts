@@ -16,7 +16,7 @@ export default class ListAvaliableItens {
       tarnsactionsLoan.map((transaction) => transaction.item.id)
     );
     return Promise.resolve(
-      PaginationEntityAdapter.createFormMemory(item, {
+      PaginationEntityAdapter.create(item, {
         limit,
         after: afterAt,
       })

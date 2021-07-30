@@ -57,7 +57,7 @@ export default class ItemTransactionRepositoryInMemory
       .map(TransactionAdapter.create);
 
     return Promise.resolve(
-      PaginationEntityAdapter.createFormMemory(userTransactionsLoan, {
+      PaginationEntityAdapter.create(userTransactionsLoan, {
         limit,
         after: afterAt,
       })

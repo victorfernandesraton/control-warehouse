@@ -9,7 +9,7 @@ import { data as transactions } from '../../../infra/repository/memory/__mocks__
 describe('PaginationEtity', () => {
   test('Shoud be list of users and return 2 itens', () => {
     const list: Array<User> = [...data.map(UserAdapter.create)];
-    const result = PaginationEntityAdapter.createFormMemory(list, { limit: 2 });
+    const result = PaginationEntityAdapter.create(list, { limit: 2 });
     expect(list).toHaveLength(3);
     expect(result.before).toBeUndefined();
     expect(result.data).toHaveLength(2);
@@ -20,7 +20,7 @@ describe('PaginationEtity', () => {
   });
   test('Shoud be list of users and paginated twice', () => {
     const list: Array<User> = [...data.map(UserAdapter.create)];
-    const result = PaginationEntityAdapter.createFormMemory(list, { limit: 2 });
+    const result = PaginationEntityAdapter.create(list, { limit: 2 });
 
     expect(list).toHaveLength(3);
 
@@ -28,7 +28,7 @@ describe('PaginationEtity', () => {
     expect(result.after).toBe(list[1].id);
     expect(result.data).toHaveLength(2);
 
-    const final = PaginationEntityAdapter.createFormMemory(list, {
+    const final = PaginationEntityAdapter.create(list, {
       limit: 2,
       after: result.after,
     });
@@ -43,7 +43,7 @@ describe('PaginationEtity', () => {
       TransactionAdapter.create
     );
 
-    const result = PaginationEntityAdapter.createFormMemory(list, { limit: 2 });
+    const result = PaginationEntityAdapter.create(list, { limit: 2 });
 
     expect(list).toHaveLength(8);
 
@@ -51,7 +51,7 @@ describe('PaginationEtity', () => {
     expect(result.after).toBe(list[1].id);
     expect(result.data).toHaveLength(2);
 
-    const final = PaginationEntityAdapter.createFormMemory(list, {
+    const final = PaginationEntityAdapter.create(list, {
       limit: 2,
       after: result.after,
     });
@@ -62,7 +62,7 @@ describe('PaginationEtity', () => {
     expect(final.after).toBe(list[3].id);
     expect(final.before).toBe(list[2].id);
 
-    const extra = PaginationEntityAdapter.createFormMemory(list, {
+    const extra = PaginationEntityAdapter.create(list, {
       limit: 6,
       after: final.after,
     });

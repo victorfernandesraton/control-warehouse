@@ -10,7 +10,7 @@ export interface PaginationEntityOptionsObjectParams {
 }
 
 export default class PaginationEntityAdapter {
-  static createFormMemory<T extends BasicEntity>(
+  static create<T extends BasicEntity>(
     data: Array<T>,
     { after, limit }: PaginationEntityOptionsObjectParams
   ): PaginationEntity<T> {
@@ -32,12 +32,5 @@ export default class PaginationEntityAdapter {
       before: head,
       after: end,
     });
-  }
-
-  static create<T extends BasicEntity>(
-    data: Array<T>,
-    { after, before }: PaginationEntityObjectParams<T>
-  ): PaginationEntity<T> {
-    return new PaginationEntity({ data, after, before });
   }
 }

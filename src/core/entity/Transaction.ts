@@ -30,6 +30,7 @@ export default class Transaction extends BasicEntity {
     super(id);
     this.item = item;
     this.user = user;
+
     this.status = status ?? TransactionEnum.Loan;
     this.createdAt = createdAt
       ? typeof createdAt === 'string'

@@ -12,8 +12,8 @@ export interface CreateDevolutionParams {
 }
 
 export interface CreateDevolutionExecuteParams {
-  user: User;
-  item: Item;
+  userId: string;
+  itemId: string;
 }
 export default class CreateDevolution {
   readonly itemTransactionRepository: ItemTrasactionsRepository;
@@ -30,13 +30,13 @@ export default class CreateDevolution {
   }
 
   async execute({
-    user,
-    item,
+    userId,
+    itemId,
   }: CreateDevolutionExecuteParams): Promise<Transaction> {
     const [findUser, lastTransaction, findItem] = await Promise.all([
-      this.userRepository.find(user.id),
-      this.itemTransactionRepository.lastTrasaction(item.id),
-      this.itemRepository.find(item.id),
+      this.userRepository.find(userId),
+      this.itemTransactionRepository.lastTrasaction(itemId),
+      this.itemRepository.find(itemId),
     ]);
 
     if (!findUser) {
@@ -46,7 +46,7 @@ export default class CreateDevolution {
       throw new Error('Item cannot be devolution');
     }
 
-    if (!lastTransaction || lastTransaction.status !== TransactionEnum.Loan) {
+    if (lastTransaction?.status !== TransactionEnum.Loan) {
       throw new Error('item cannot be devolution because is not loan');
     }
 
