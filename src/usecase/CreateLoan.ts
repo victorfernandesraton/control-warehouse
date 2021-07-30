@@ -15,9 +15,9 @@ export interface CreateLoanExecuteParams {
 }
 
 export default class CreateLoan {
-  itemRepository: ItemRepository;
-  ItemTrasactionsRepository: ItemTrasactionsRepository;
-  UserRepository: UserRepository;
+  readonly itemRepository: ItemRepository;
+  readonly ItemTrasactionsRepository: ItemTrasactionsRepository;
+  readonly UserRepository: UserRepository;
   constructor({
     itemRepository,
     itemTrasactionsRepository,

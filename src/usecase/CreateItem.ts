@@ -15,8 +15,8 @@ export interface CreateItemExecuteParams {
 }
 
 export default class CreateItem {
-  itemRepository: ItemRepository;
-  storageRepository: StorageRepository;
+  readonly itemRepository: ItemRepository;
+  readonly storageRepository: StorageRepository;
   constructor({ itemRepository, storageRepository }: CreateItemParams) {
     this.itemRepository = itemRepository;
     this.storageRepository = storageRepository;

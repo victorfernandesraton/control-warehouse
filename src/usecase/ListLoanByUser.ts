@@ -8,8 +8,8 @@ export interface ListLoanByUserParams {
   userRepository: UserRepository;
 }
 export default class ListLoanByUser {
-  itemTransactionRepository: ItemTrasactionsRepository;
-  userRepository: UserRepository;
+  readonly itemTransactionRepository: ItemTrasactionsRepository;
+  readonly userRepository: UserRepository;
 
   constructor({
     itemTransactionRepository,

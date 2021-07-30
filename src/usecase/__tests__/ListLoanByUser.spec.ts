@@ -2,6 +2,7 @@ import ItemTransactionRepositoryInMemory from '../../infra/repository/memory/Ite
 import UserRepostoryInMemory from '../../infra/repository/memory/UserRepository';
 import ListLoanByUser from '../ListLoanByUser';
 import mock from '../../infra/repository/memory/__mocks__/ItemTransactions.json';
+
 describe('ListLoanByUser', () => {
   test('shoud be 1 loan for user', async () => {
     const userRepository = new UserRepostoryInMemory();
