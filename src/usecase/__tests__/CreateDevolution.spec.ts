@@ -4,11 +4,16 @@ import ItemRepositoryInMemory from '../../infra/repository/memory/ItemRepository
 
 import CreateDevolution from '../CreateDevolution';
 import { TransactionEnum } from '../../core/entity/Transaction';
+import { PaginationEntityAdapterInMemory } from '../../adapters/PaginationEntity';
 
 describe('CreateDevolution', () => {
   test('shoud be a valid devolution', async () => {
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemRepository.data = [
       ...itemRepository.data,
       {
@@ -52,8 +57,12 @@ describe('CreateDevolution', () => {
     expect(result.user.id).toBe('d1236519-2124-475a-9c45-fab829ec13ac');
   });
   test('shoud be create devolution because user is admin', async () => {
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemRepository.data = [
       ...itemRepository.data,
       {
@@ -108,8 +117,12 @@ describe('CreateDevolution', () => {
   });
 
   test('shoud be not create devolution because item is not in user', async () => {
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemRepository.data = [
       ...itemRepository.data,
       {

@@ -2,11 +2,14 @@ import ItemTransactionRepositoryInMemory from '../../infra/repository/memory/Ite
 import UserRepostoryInMemory from '../../infra/repository/memory/UserRepository';
 import ListLoanByUser from '../ListLoanByUser';
 import mock from '../../infra/repository/memory/__mocks__/ItemTransactions.json';
+import { PaginationEntityAdapterInMemory } from '../../adapters/PaginationEntity';
 
 describe('ListLoanByUser', () => {
   test('shoud be 1 loan for user', async () => {
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const usecase = new ListLoanByUser({
       userRepository,
       itemTransactionRepository,
@@ -20,7 +23,9 @@ describe('ListLoanByUser', () => {
   });
   test('shoud be 3 loan for user', async () => {
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemTransactionRepository.data = [...mock.data];
 
     const usecase = new ListLoanByUser({
@@ -35,7 +40,9 @@ describe('ListLoanByUser', () => {
   });
   test('shoud be paginatetd 2 loans in first page and one in second', async () => {
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemTransactionRepository.data = [...mock.data];
 
     const usecase = new ListLoanByUser({
@@ -50,7 +57,9 @@ describe('ListLoanByUser', () => {
   });
   test('shoud be 0 loan for user because product has been devolute', async () => {
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     itemTransactionRepository.data = [...mock.data];
     const user = {
       id: 'eacca3d6-177b-41c9-822e-736c72949677',
@@ -75,7 +84,9 @@ describe('ListLoanByUser', () => {
       email: 'j_machado@gmail.com',
     };
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     userRepository.data = [...userRepository.data, user];
 
     const usecase = new ListLoanByUser({
@@ -96,7 +107,9 @@ describe('ListLoanByUser', () => {
       isAdmin: true,
     };
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     userRepository.data = [...userRepository.data, user];
     itemTransactionRepository.data = [
       ...itemTransactionRepository.data,
@@ -139,7 +152,9 @@ describe('ListLoanByUser', () => {
       isAdmin: true,
     };
     const userRepository = new UserRepostoryInMemory();
-    const itemTransactionRepository = new ItemTransactionRepositoryInMemory();
+    const itemTransactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const usecase = new ListLoanByUser({
       userRepository,
       itemTransactionRepository,

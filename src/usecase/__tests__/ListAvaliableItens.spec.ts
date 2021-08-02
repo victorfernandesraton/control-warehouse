@@ -3,6 +3,7 @@ import ItemRepositoryInMemory from '../../infra/repository/memory/ItemRepository
 import ItemTransactionRepositoryInMemory from '../../infra/repository/memory/ItemTransactionRepository';
 import TransactionAdapter from '../../adapters/Transaction';
 import ItemAdapter from '../../adapters/Item';
+import { PaginationEntityAdapterInMemory } from '../../adapters/PaginationEntity';
 
 describe('ListAvaliableItens', () => {
   const defaultTransactions = [
@@ -96,8 +97,12 @@ describe('ListAvaliableItens', () => {
     },
   ].map(ItemAdapter.create);
   test('have avaliable itens', async () => {
-    const transactionRepository = new ItemTransactionRepositoryInMemory();
-    const itemRepository = new ItemRepositoryInMemory();
+    const transactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     jest
       .spyOn(transactionRepository, 'itensInLoan')
       .mockImplementation(() => Promise.resolve(defaultTransactions));
@@ -111,8 +116,12 @@ describe('ListAvaliableItens', () => {
     expect(result.data[0].id).toBe('46ed59e9-2af9-4214-b525-d349f6041440');
   });
   test('have avaliable itens after tarnsaciton loan', async () => {
-    const transactionRepository = new ItemTransactionRepositoryInMemory();
-    const itemRepository = new ItemRepositoryInMemory();
+    const transactionRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     jest.spyOn(transactionRepository, 'itensInLoan').mockImplementation(() =>
       Promise.resolve([
         ...defaultTransactions,

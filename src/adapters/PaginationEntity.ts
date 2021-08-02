@@ -1,7 +1,5 @@
 import BasicEntity from '../core/entity/BasicEntity';
-import PaginationEntity, {
-  PaginationEntityObjectParams,
-} from '../shared/utils/PaginationEntity';
+import PaginationEntity from '../shared/utils/PaginationEntity';
 
 export interface PaginationEntityOptionsObjectParams {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,8 +7,15 @@ export interface PaginationEntityOptionsObjectParams {
   limit?: number;
 }
 
-export default class PaginationEntityAdapter {
-  static create<T extends BasicEntity>(
+export abstract class PaginationEntityAdapterStrategy {
+  abstract create<T extends BasicEntity>(
+    data: Array<T>,
+    { after, limit }: PaginationEntityOptionsObjectParams
+  );
+}
+
+export class PaginationEntityAdapterInMemory extends PaginationEntityAdapterStrategy {
+  create<T extends BasicEntity>(
     data: Array<T>,
     { after, limit }: PaginationEntityOptionsObjectParams
   ): PaginationEntity<T> {

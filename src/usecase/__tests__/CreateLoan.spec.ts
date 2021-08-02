@@ -3,12 +3,17 @@ import ItemRepositoryInMemory from '../../infra/repository/memory/ItemRepository
 import UserRepostoryInMemory from '../../infra/repository/memory/UserRepository';
 import ItemTransactionRepositoryInMemory from '../../infra/repository/memory/ItemTransactionRepository';
 import { TransactionEnum } from '../../core/entity/Transaction';
+import { PaginationEntityAdapterInMemory } from '../../adapters/PaginationEntity';
 
 describe('CreateLoan', () => {
   test('shoud be create a simple loan', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const userRepository = new UserRepostoryInMemory();
-    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
 
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
     const item = {
@@ -39,9 +44,13 @@ describe('CreateLoan', () => {
   });
 
   test('shoud be not create loan because item is have been loan', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const userRepository = new UserRepostoryInMemory();
-    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
 
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
     const itemId = '423a3d8c-9d25-492e-82ae-9c1573bc9b3e';
@@ -59,9 +68,13 @@ describe('CreateLoan', () => {
   });
 
   test('shoud be not create loan because item is not found', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const userRepository = new UserRepostoryInMemory();
-    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
 
     const userId = 'd1236519-2124-475a-9c45-fab829ec13ac';
     const item = {
@@ -87,9 +100,13 @@ describe('CreateLoan', () => {
     expect(itemTrasactionsRepository.data).toHaveLength(1);
   });
   test('shoud be not create loan because user is not found', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const userRepository = new UserRepostoryInMemory();
-    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory();
+    const itemTrasactionsRepository = new ItemTransactionRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
 
     const userId = 'd1236519-2124-475a-9c45-fab829c13ac';
     const itemId = '423a3d8c-9d25-492e-82ae-9c1573bc9b3e';

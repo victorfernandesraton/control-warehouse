@@ -6,7 +6,7 @@ import TransactionAdapter, {
 } from '../../../adapters/Transaction';
 
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
-import PaginationEntityAdapter from '../../../adapters/PaginationEntity';
+import { PaginationEntityAdapterStrategy } from '../../../adapters/PaginationEntity';
 
 import { UserObjectParams } from '../../../adapters/User';
 
@@ -16,11 +16,14 @@ export default class ItemTransactionRepositoryInMemory
 {
   data: TransactionObjectParams[] = [data[0]];
   ItenAvaliableRepository;
+  constructor(readonly paginationAdapter: PaginationEntityAdapterStrategy) {}
+
   protected uniqueItens(): string[] {
     return Array.from(
       new Set(this.data.map((i) => i?.item?.id).filter((i) => i != null))
     );
   }
+
   createTransaction(
     item: ItemObjectParams,
     status: TransactionEnum,
@@ -57,7 +60,7 @@ export default class ItemTransactionRepositoryInMemory
       .map(TransactionAdapter.create);
 
     return Promise.resolve(
-      PaginationEntityAdapter.create(userTransactionsLoan, {
+      this.paginationAdapter.create(userTransactionsLoan, {
         limit,
         after: afterAt,
       })

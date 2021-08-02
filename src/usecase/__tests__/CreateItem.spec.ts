@@ -1,10 +1,13 @@
+import { PaginationEntityAdapterInMemory } from '../../adapters/PaginationEntity';
 import ItemRepositoryInMemory from '../../infra/repository/memory/ItemRepository';
 import StorageRepositoryInMemory from '../../infra/repository/memory/StorageRepositoryInMemory';
 import CreateItem from '../CreateItem';
 
 describe('CreateItem', () => {
   test('shoud be createItem', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const storageRepository = new StorageRepositoryInMemory();
     const usecase = new CreateItem({
       itemRepository,
@@ -27,7 +30,9 @@ describe('CreateItem', () => {
     expect(itemRepository.data).toHaveLength(2);
   });
   test('should be createItem without using after result', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const storageRepository = new StorageRepositoryInMemory();
     const usecase = new CreateItem({
       itemRepository,
@@ -50,7 +55,9 @@ describe('CreateItem', () => {
     expect(itemRepository.data).toHaveLength(2);
   });
   test('shoud be not create item because storage is not found', async () => {
-    const itemRepository = new ItemRepositoryInMemory();
+    const itemRepository = new ItemRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const storageRepository = new StorageRepositoryInMemory();
 
     const item = {
