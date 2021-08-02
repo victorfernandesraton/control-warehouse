@@ -11,7 +11,7 @@ export abstract class PaginationEntityAdapterStrategy {
   abstract create<T extends BasicEntity>(
     data: Array<T>,
     { after, limit }: PaginationEntityOptionsObjectParams
-  );
+  ): PaginationEntity<T>;
 }
 
 export class PaginationEntityAdapterInMemory extends PaginationEntityAdapterStrategy {

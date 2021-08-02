@@ -1,6 +1,7 @@
 import Item from '../../core/entity/Item';
 import { ItemObjectParams } from '../../adapters/Item';
 import PaginationEntity from '../../shared/utils/PaginationEntity';
+import { PaginationEntityOptionsObjectParams } from '../../adapters/PaginationEntity';
 
 export default interface ItemRepository {
   createItem(item: ItemObjectParams): Promise<Item | null>;
@@ -8,6 +9,6 @@ export default interface ItemRepository {
   findByStorage(id: string): Promise<Item[]>;
   findWithNotIn(
     ids: string[],
-    { limit, afterAt }
+    { limit, after }: PaginationEntityOptionsObjectParams
   ): Promise<PaginationEntity<Item>>;
 }

@@ -13,7 +13,7 @@ export default class ListAvaliableItens {
     const tarnsactionsLoan = await this.transactionRepository.itensInLoan();
     const item = await this.itemRepository.findWithNotIn(
       tarnsactionsLoan.map((transaction) => transaction.item.id),
-      { afterAt, limit }
+      { after: afterAt, limit }
     );
     return Promise.resolve(item);
   }

@@ -1,5 +1,3 @@
-import User from '../core/entity/User';
-import Item from '../core/entity/Item';
 import ItemRepository from '../infra/repository/ItemRepository';
 import ItemTrasactionsRepository from '../infra/repository/ItemTrasactionsRepository';
 import UserRepository from '../infra/repository/UserRepository';

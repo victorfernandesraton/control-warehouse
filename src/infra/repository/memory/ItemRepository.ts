@@ -1,5 +1,8 @@
 import ItemAdapter, { ItemObjectParams } from '../../../adapters/Item';
-import { PaginationEntityAdapterStrategy } from '../../../adapters/PaginationEntity';
+import {
+  PaginationEntityAdapterStrategy,
+  PaginationEntityOptionsObjectParams,
+} from '../../../adapters/PaginationEntity';
 import Item from '../../../core/entity/Item';
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
 import ItemRepository from '../ItemRepository';
@@ -36,12 +39,12 @@ export default class ItemRepositoryInMemory implements ItemRepository {
   }
   findWithNotIn(
     ids: string[],
-    { limit = 5, afterAt }
+    { limit = 5, after }: PaginationEntityOptionsObjectParams
   ): Promise<PaginationEntity<Item>> {
     const items = this.data.filter((item) => !ids.includes(item.id));
 
     return Promise.resolve(
-      this.paginationAdapter.create(items, { after: afterAt, limit })
+      this.paginationAdapter.create(items, { after, limit })
     );
   }
 }
