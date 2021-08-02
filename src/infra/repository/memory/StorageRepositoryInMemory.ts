@@ -19,17 +19,10 @@ export default class StorageRepositoryInMemory implements StorageRepository {
     }
     return Promise.resolve(null);
   }
-  createStorage({
-    name,
-    description,
-    status,
-    capacity,
-  }: StorageObjectParams): Promise<Storage> {
+  createStorage({ name, description }: StorageObjectParams): Promise<Storage> {
     const newStorage = StorageAdapter.create({
       name,
       description,
-      status,
-      capacity,
     });
     this.data.push(newStorage);
     return Promise.resolve(newStorage);

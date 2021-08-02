@@ -110,8 +110,7 @@ describe('ListLoanByUser', () => {
           tag: ['chave', 'proteção elétrica'],
           storage: {
             name: 'Caixa de cahevs de fenda',
-            status: 0,
-            capacity: 10,
+
             id: '03061a24-7ec5-4f21-9563-3611e27da429',
           },
         },
