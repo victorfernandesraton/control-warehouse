@@ -1,14 +1,12 @@
 import Express, { Request, Response, NextFunction } from 'express';
-
-class ServerError extends Error {
-  constructor(message: string, readonly statusCode: number = 500) {
-    super(message);
-  }
-}
+import ExpressAdapter from '../../../adapters/Express';
+import ServerError from './errors/ServerError';
 
 const App = Express();
 
-App.get('/', (req: Request, res: Response) => res.json({ message: 'OK' }));
+const defaultHandler = () => ({ message: 'OK' });
+
+App.get('/', ExpressAdapter.parse(defaultHandler));
 
 App.use((req: Request, res: Response, next: NextFunction) => {
   next(new ServerError('Not found', 404));
