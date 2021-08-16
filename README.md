@@ -25,11 +25,17 @@ As camadas de pasta implemetarão unica responsabilidade definida pela seguinte 
 |   +-- repositories
 +-- shared
 |   +-- utils
++-- app
+|   +-- http
+|   |   +-- controller
+|   |   +-- view
 ```
 
 #### Entidades
 
-São as entidades descritas pelo seguinte diagrama
+`src/core/entity`
+
+São as entidades do sistema que abstraem em um modelo de dados o que faz parte das regras de negócio. São descritas pelo seguinte diagrama
 
 <img src="./resources/class.svg" />
 
