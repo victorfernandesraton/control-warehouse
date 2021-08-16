@@ -78,3 +78,12 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 - [ ] Precisa ter um email
 - [ ] Pode ou não ser um admin
 - [ ] Precisa de uma senha hasheada
+
+## Requiscão
+
+rota = url, vem a partir da primeira / , rotas são usadas para indicar os paths
+path = são caminhos usados para chegar a um recurso
+metod = GET, POST, PUT, DELETE
+params = são valores inbutidos na url
+query = são informacões simples e extras enbutidas depois da virgula -> o query refre-se a valores ão obrigatórios
+body = são dados que trarham dentro do cabecário http de forma emcriptada e só funcionam em metodo post ou get
