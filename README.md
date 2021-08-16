@@ -17,8 +17,6 @@ As camadas de pasta implemetarão unica responsabilidade definida pela seguinte 
 ```
 +-- core
 |   +-- entity
-|   +-- domain
-|   |   +-- validation
 +-- adaptors
 +-- usecase
 +-- infra
@@ -48,15 +46,13 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 
 ### storage
 
-- [ ] possui um nome obrigatório
-- [ ] pode possuir um storage filho
-- [ ] possui uma capacidade máxima
-- [ ] um storage não precisa ter itens
-- [ ] possui um status
-  - [ ] ativo
-  - [ ] cheio
-  - [ ] desativado
-  - [ ] em manutenção
+- [x] possui um nome obrigatório
+- [] pode possuir um storage filho
+- [x] um storage não precisa ter itens
+- [] possui um status
+  - [] ativo
+  - [] desativado
+  - [] em manutenção
 
 ### transação
 
@@ -65,11 +61,11 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 - Retirada
   - [x] não altera a quantidade de itens no storage quando for uma retirada
 - Devolução
-  - [ ] somente quem retirou ou um admin pode devolver o item
+  - [x] somente quem retirou ou um admin pode devolver o item
 - [x] Listar todos as retiradas de um usuário
-- [ ] listar todas as devoluções recentes de um usuário
+- [x] listar todas as devoluções recentes de um usuário
 - [x] listar todas os items em empréstimo a um usuário (disponiveis para devolver)
-- [ ] buscar todos os itens disponiveis para a retirada
+- [x] buscar todos os itens disponiveis para a retirada
 
 ### Usuário
 
