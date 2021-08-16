@@ -1,5 +1,5 @@
 import { agent } from 'supertest';
-import App from '../Express/App';
+import App from '../../../src/app/http/Express/App';
 
 describe('Express server', () => {
   const instance = agent(App);
