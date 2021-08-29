@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest -- src/",
     "start": "ts-node ./src/app/http",
-    "test:integration": "jest -- test/integration"
+    "test:integration": "jest -- test/integration",
+    "test:e2e": "jest -- test/e2e"
   },
   "keywords": [],
   "author": "",

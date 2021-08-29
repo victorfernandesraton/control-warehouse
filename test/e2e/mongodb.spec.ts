@@ -1,4 +1,4 @@
-import connection from '../mongodb';
+import connection from '../../src/infra/database/mongodb';
 import { v4 } from 'uuid';
 describe('shold be connect to database', () => {
   let tags;

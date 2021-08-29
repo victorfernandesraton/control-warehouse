@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 export default function () {
-  const uri =
-    'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false';
+  const uri = 'mongodb://localhost:27017/?readPreference=primary&ssl=false';
   try {
     const client = new MongoClient(uri).connect();
 
