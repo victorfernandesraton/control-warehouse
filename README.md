@@ -81,4 +81,4 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 
 ## Banco de dados
 
-Pensando em uma arquitetura lima, neste projeto será usado apenas a blibioteca do SQLITE3 sem nenhum ORM, normalmente se usa blibiotecas de ORM, mas por questões acadêmicas foi optado por isso
+Pensando em uma arquitetura limpa, neste projeto será usado apenas a blibioteca do ,ogodb, sem o uso de orm como o mongoose, o modelo será simples
