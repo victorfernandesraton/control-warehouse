@@ -82,3 +82,16 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 ## Banco de dados
 
 Pensando em uma arquitetura limpa, neste projeto será usado apenas a blibioteca do ,ogodb, sem o uso de orm como o mongoose, o modelo será simples
+
+## Endpoints
+
+### [POST] /storage
+
+- body
+
+```json
+{
+  "name": "Some storage", // obrigatório
+  "description": "some storage description"
+}
+```

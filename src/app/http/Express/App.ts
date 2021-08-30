@@ -11,20 +11,6 @@ App.use(Express.json());
 const defaultHandler = () => ({ message: 'OK' });
 
 App.get('/', ExpressAdapter.parse(defaultHandler));
-App.post(
-  '/',
-  ExpressAdapter.parse(({ body, params, query }) => {
-    const IMC = body.peso / (body.altura / 100) ** 2;
-    return { IMC, body, params, query };
-  })
-);
-
-App.get(
-  '/user/:idx',
-  ExpressAdapter.parse(({ params, body, query }) => {
-    return { params, body, query };
-  })
-);
 
 App.use((req: Request, res: Response, next: NextFunction) => {
   next(new ServerError('Not found', 404));

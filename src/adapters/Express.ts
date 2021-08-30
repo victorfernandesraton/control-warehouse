@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { IApplicationHttpData } from './Application';
 function extractionHttpData(req: Request): IApplicationHttpData {
   const { params, body, query } = req;
-  return { params, body, query };
+  const database = req.app.locals?.database;
+  return { params, body, query, database };
 }
 
 export default class ExpressAdapter {

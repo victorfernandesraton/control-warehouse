@@ -1,6 +1,16 @@
 import App from '../http/Express/App';
 import { createServer } from 'http';
+import mongodb from '../../infra/database/mongodb';
 
-const Server = createServer(App);
+const start = async () => {
+  const database = await mongodb();
 
-Server.listen(8000);
+  database.db('sys').collection('storage');
+  // ele passa database
+  App.locals.database = database;
+
+  const Server = createServer(App);
+  Server.listen(8000);
+};
+
+start();
