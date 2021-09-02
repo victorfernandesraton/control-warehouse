@@ -19,6 +19,6 @@ export default class MongoStorageRepositoy implements StorageRepository {
     }
   }
   updateStorage(storage: Storage): Promise<Storage> {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.storage');
   }
 }

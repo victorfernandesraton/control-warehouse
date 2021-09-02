@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest -- src/",
+    "test": "jest -- ./",
     "start": "ts-node-dev --respawn ./src/app/http",
     "test:integration": "jest -- test/integration",
     "test:e2e": "jest -- test/e2e"
