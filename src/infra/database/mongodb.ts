@@ -1,5 +1,13 @@
 import { MongoClient, Collection } from 'mongodb';
 
+export interface MongoHelperInterface {
+  connect(uri: string): Promise<void>;
+  disconnect(): Promise<void>;
+  getCollection(name: string): Promise<Collection>;
+  drop(): Promise<void>;
+  map(data: any): any;
+  mapCollection(collection: any[]): any[];
+}
 export const MongoHelper = {
   client: null as MongoClient,
   uri: null as string,
@@ -19,8 +27,8 @@ export const MongoHelper = {
 
     return this.client.db().collection(name);
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async drop() {
+
+  async drop(): Promise<void> {
     if (!this.client?.isConnected()) {
       await this.connect(this.uri);
     }

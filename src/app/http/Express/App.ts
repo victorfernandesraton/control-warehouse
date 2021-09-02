@@ -1,27 +1,29 @@
-import Express, { Request, Response, NextFunction } from 'express';
-import ExpressAdapter from '../../../adapters/Express';
+import Express, { Request, Response, NextFunction, Router } from 'express';
 import ServerError from './errors/ServerError';
-
+import { StorageRouterFactory } from '../routes/Storage';
 import BodyParser from 'body-parser';
 
-const App = Express();
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function Application(storageRoute: Router) {
+  const App = Express();
 
-App.use(Express.json());
+  App.use(Express.json());
 
-const defaultHandler = () => ({ message: 'OK' });
+  App.use(storageRoute);
 
-App.get('/', ExpressAdapter.parse(defaultHandler));
+  App.use((req: Request, res: Response, next: NextFunction) => {
+    next(new ServerError('Not found', 404));
+  });
 
-App.use((req: Request, res: Response, next: NextFunction) => {
-  next(new ServerError('Not found', 404));
-});
+  App.use(
+    (error: ServerError, req: Request, res: Response, next: NextFunction) => {
+      res.status(error?.statusCode ?? 500);
+      res.json({ message: error.message });
+      return res;
+    }
+  );
 
-App.use(
-  (error: ServerError, req: Request, res: Response, next: NextFunction) => {
-    res.status(error.statusCode);
-    res.json({ message: error.message });
-    return res;
-  }
-);
+  return App;
+}
 
-export default App;
+export default Application;

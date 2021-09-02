@@ -1,10 +1,10 @@
 import { Collection } from 'mongodb';
 
 import Storage from '../../../core/entity/Storage';
-import Storagerepository from '../StorageRepository';
+import StorageRepository from '../StorageRepository';
 import StorageAdapter from '../../../adapters/Storage';
 
-export default class MongoStorageRepositoy implements Storagerepository {
+export default class MongoStorageRepositoy implements StorageRepository {
   constructor(readonly collection: Collection) {}
   find(id: string): Promise<Storage> {
     throw new Error('Method not implemented.');

@@ -1,13 +1,17 @@
-import StorageController from '../controller/StorageController';
-import StorageRepository from '../../../infra/repository/mongodb/StorageRepository';
-import CreateStorage from '../../../usecase/CreateStorage';
+import StorageCreateController from '../controller/StorageCreateController';
 
-export function StorageMiddleware(req, res, next) {
-  const repository = new StorageRepository(
-    req.database.db('sys').collection('store')
-  );
+export enum StorageRouterEndpoint {
+  create = '/',
+}
+export function StorageRouterFactory(
+  storageCreateController: StorageCreateController,
+  router: any
+): any {
+  router.post(StorageRouterEndpoint.create, (...args) => {
+    storageCreateController.handle(
+      storageCreateController.controller.extractionHttpData(...args)
+    );
+  });
 
-  req.locals.repository = repository;
-
-  next();
+  return router;
 }

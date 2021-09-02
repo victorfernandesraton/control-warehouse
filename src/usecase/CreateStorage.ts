@@ -12,7 +12,7 @@ export interface CreateStorageExecuteParams {
 }
 
 export default class CreateStorage {
-  readonly repository: StorageRepository;
+  repository: StorageRepository;
   constructor({ repository }: CreateStorageParams) {
     this.repository = repository;
   }
@@ -25,6 +25,6 @@ export default class CreateStorage {
 
     const result = await this.repository.createStorage(storage);
 
-    return Promise.resolve(storage);
+    return Promise.resolve(result);
   }
 }
