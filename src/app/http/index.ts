@@ -2,7 +2,7 @@ import Application from '../http/Express/App';
 import { createServer } from 'http';
 import { MongoHelper } from '../../infra/database/mongodb';
 import { Router } from 'express';
-import { StorageRouterFactory } from './routes/Storage';
+import { StorageRoute } from './routes/';
 
 import CreateStorage from '../../usecase/CreateStorage';
 import StorageCreateController from './controller/StorageCreateController';
@@ -21,7 +21,7 @@ const start = async () => {
     controller
   );
 
-  const storageRoute = StorageRouterFactory(storageCreateController, router);
+  const storageRoute = StorageRoute(storageCreateController, router);
   const route = Router();
 
   route.use('/storage', storageRoute);

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { IApplicationHttpData } from '../../../adapters/Application';
-import BaseController from '../controller/BaseController';
+import { BaseControllerInterface } from '../controller/BaseController';
 
-export class BaseExpressController extends BaseController {
+export class BaseExpressController implements BaseControllerInterface {
   public extractionHttpData(
     req: Request,
     response: Response,

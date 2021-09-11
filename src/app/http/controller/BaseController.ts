@@ -1,10 +1,5 @@
-export default abstract class BaseController {
-  protected abstract extractionHttpData(...any: any);
-
-  protected abstract jsonResponse(...any: any);
-}
-
 export interface BaseControllerInterface {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   extractionHttpData(...any: any);
   jsonResponse({ code, data }, response);
 }
