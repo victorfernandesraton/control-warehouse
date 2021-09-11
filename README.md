@@ -79,11 +79,19 @@ Para cada funcionalidade e entidade temos a nossa lista de requisitos, ou seja d
 - [ ] Pode ou não ser um admin
 - [ ] Precisa de uma senha hasheada
 
-## Requiscão
+## Banco de dados
 
-rota = url, vem a partir da primeira / , rotas são usadas para indicar os paths
-path = são caminhos usados para chegar a um recurso
-metod = GET, POST, PUT, DELETE
-params = são valores inbutidos na url
-query = são informacões simples e extras enbutidas depois da virgula -> o query refre-se a valores ão obrigatórios
-body = são dados que trarham dentro do cabecário http de forma emcriptada e só funcionam em metodo post ou get
+Pensando em uma arquitetura limpa, neste projeto será usado apenas a blibioteca do ,ogodb, sem o uso de orm como o mongoose, o modelo será simples
+
+## Endpoints
+
+### [POST] /storage
+
+- body
+
+```json
+{
+  "name": "Some storage", // obrigatório
+  "description": "some storage description"
+}
+```

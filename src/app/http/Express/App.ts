@@ -1,41 +1,33 @@
-import Express, { Request, Response, NextFunction } from 'express';
-import ExpressAdapter from '../../../adapters/Express';
+import Express, { Request, Response, NextFunction, Router } from 'express';
 import ServerError from './errors/ServerError';
 
-import BodyParser from 'body-parser';
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function Application(route?: Router) {
+  const App = Express();
 
-const App = Express();
+  App.use(Express.json());
 
-App.use(Express.json());
-
-const defaultHandler = () => ({ message: 'OK' });
-
-App.get('/', ExpressAdapter.parse(defaultHandler));
-App.post(
-  '/',
-  ExpressAdapter.parse(({ body, params, query }) => {
-    const IMC = body.peso / (body.altura / 100) ** 2;
-    return { IMC, body, params, query };
-  })
-);
-
-App.get(
-  '/user/:idx',
-  ExpressAdapter.parse(({ params, body, query }) => {
-    return { params, body, query };
-  })
-);
-
-App.use((req: Request, res: Response, next: NextFunction) => {
-  next(new ServerError('Not found', 404));
-});
-
-App.use(
-  (error: ServerError, req: Request, res: Response, next: NextFunction) => {
-    res.status(error.statusCode);
-    res.json({ message: error.message });
-    return res;
+  if (route) {
+    App.use(route);
   }
-);
 
-export default App;
+  App.get('/', (req: Request, res: Response) => {
+    res.status(200);
+    res.json({
+      message: 'OK',
+    });
+  });
+
+  App.use((req: Request, res: Response, next: NextFunction) => {
+    next(new ServerError('Not found', 404));
+  });
+
+  App.use((error: ServerError, req: Request, res: Response) => {
+    res.status(error?.statusCode ?? 500).json({ message: error.getMessage() });
+    return res;
+  });
+
+  return App;
+}
+
+export default Application;

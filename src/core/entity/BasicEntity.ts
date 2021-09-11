@@ -4,6 +4,7 @@ export default class BasicEntity {
   readonly id: string;
   public createdAt: Date;
   public updatedAt: Date;
+  readonly epoch: number;
 
   constructor(id: string) {
     if (id) {
@@ -13,6 +14,7 @@ export default class BasicEntity {
     }
     this.createdAt = new Date(Date.now());
     this.updatedAt = new Date(Date.now());
+    this.epoch = new Date(Date.now()).getTime();
   }
 
   public updateEntity(): void {
