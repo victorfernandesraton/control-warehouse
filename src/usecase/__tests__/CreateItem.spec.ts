@@ -8,7 +8,9 @@ describe('CreateItem', () => {
     const itemRepository = new ItemRepositoryInMemory(
       new PaginationEntityAdapterInMemory()
     );
-    const storageRepository = new StorageRepositoryInMemory();
+    const storageRepository = new StorageRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const usecase = new CreateItem({
       itemRepository,
       storageRepository,
@@ -33,7 +35,9 @@ describe('CreateItem', () => {
     const itemRepository = new ItemRepositoryInMemory(
       new PaginationEntityAdapterInMemory()
     );
-    const storageRepository = new StorageRepositoryInMemory();
+    const storageRepository = new StorageRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
     const usecase = new CreateItem({
       itemRepository,
       storageRepository,
@@ -58,7 +62,9 @@ describe('CreateItem', () => {
     const itemRepository = new ItemRepositoryInMemory(
       new PaginationEntityAdapterInMemory()
     );
-    const storageRepository = new StorageRepositoryInMemory();
+    const storageRepository = new StorageRepositoryInMemory(
+      new PaginationEntityAdapterInMemory()
+    );
 
     const item = {
       name: 'resistor de 5Ohms',

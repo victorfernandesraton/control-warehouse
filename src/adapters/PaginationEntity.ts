@@ -3,7 +3,7 @@ import PaginationEntity from '../shared/utils/PaginationEntity';
 
 export interface PaginationEntityOptionsObjectParams {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  after?: string;
+  after?: string | number;
   limit?: number;
 }
 
