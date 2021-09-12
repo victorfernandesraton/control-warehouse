@@ -3,9 +3,17 @@ import { Collection } from 'mongodb';
 import Storage from '../../../core/entity/Storage';
 import StorageRepository from '../StorageRepository';
 import StorageAdapter from '../../../adapters/Storage';
+import PaginationEntity from '../../../shared/utils/PaginationEntity';
 
 export default class MongoStorageRepositoy implements StorageRepository {
   constructor(readonly collection: Collection) {}
+  findAll(
+    name?: string,
+    afterAt?: number,
+    limit?: number
+  ): Promise<PaginationEntity<Storage>> {
+    throw new Error('Method not implemented.');
+  }
   find(id: string): Promise<Storage> {
     throw new Error('Method not implemented.');
   }
