@@ -8,7 +8,7 @@
     "start": "ts-node ./src/app/http",
     "start:dev": "ts-node-dev --respawn -r dotenv/config ./src/app/http",
     "test:integration": "jest -- test/integration",
-    "test:e2e": "jest -- test/e2e",
+    "test:e2e": "jest --detectOpenHandles -- test/e2e",
     "test:unit": "jest -- src/",
     "test:coverage": "jest -- src/ --coverage"
   },

@@ -29,7 +29,7 @@ export const MongoHelper = {
   },
 
   async drop(): Promise<void> {
-    if (!this.client?.isConnected()) {
+    if (!this.client?.isConnected?.()) {
       await this.connect(this.uri);
     }
     this.client.db().dropDatabase();

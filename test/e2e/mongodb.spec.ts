@@ -2,14 +2,16 @@ import { MongoHelper } from '../../src/infra/database/mongodb';
 import { v4 } from 'uuid';
 describe('shold be connect to database', () => {
   beforeAll(async () => {
-    const uri = 'mongodb://localhost:27017/?readPreference=primary&ssl=false';
+    const uri = process.env.MONGODB_HOST;
     MongoHelper.connect(uri);
   });
   afterAll(async () => {
     MongoHelper.drop();
     MongoHelper.disconnect();
+    await new Promise((resolve) => setTimeout(() => resolve(0), 500)); // avoid jest open handle error
   });
   test('create a single record', async () => {
+    expect.assertions(1);
     const records = ['test', 'hashtag', 'mySystm', 'MongoDBRocks'].map(
       (item) => ({
         uuid: v4(),
@@ -22,6 +24,7 @@ describe('shold be connect to database', () => {
   });
 
   test('create a many records', async () => {
+    expect.assertions(1);
     const records = ['test', 'hashtag', 'mySystm', 'MongoDBRocks'].map(
       (item) => ({
         uuid: v4(),
