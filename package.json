@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest -- ./",
-    "start": "ts-node-dev --respawn ./src/app/http",
+    "start": "ts-node ./src/app/http",
+    "start:dev": "ts-node-dev --respawn -r dotenv/config ./src/app/http",
     "test:integration": "jest -- test/integration",
     "test:e2e": "jest -- test/e2e",
     "test:unit": "jest -- src/",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "date-fns": "2.22.1",
+    "dotenv": "^10.0.0",
     "env-cmd": "^10.1.0",
     "express": "4.17.1",
     "jest": "27.0.6",
