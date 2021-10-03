@@ -1,7 +1,9 @@
 version: '3'
 services:
   node:
-    command: npm run dev
+    command:
+      - npm ci --only=production
+      - npm start
     restart: always
     build: .
     ports:
@@ -11,7 +13,7 @@ services:
     environment:
       - MONGODB_HOST=mongodb://mongo:27017?readPreference=primary&ssl=false
       - PORT=8000
-      - NODE_ENV=development
+      - NODE_ENV=production
     external_links:
       - mongo
     depends_on:
@@ -21,5 +23,3 @@ services:
     image: mongo
     ports:
       - 27017:27017
-    volumes:
-      - ./data/mongo:/data/db

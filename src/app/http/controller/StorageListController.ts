@@ -25,8 +25,6 @@ export default class StorageListConttroller {
         afterAt: parseInt(afterAt),
       });
 
-      console.log(result);
-
       return Promise.resolve(
         this.controller.jsonResponse({ code: 200, data: result }, response)
       );

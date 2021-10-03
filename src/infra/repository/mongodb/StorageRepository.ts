@@ -17,7 +17,7 @@ export default class MongoStorageRepositoy implements StorageRepository {
     limit?: number
   ): Promise<PaginationEntity<Storage>> {
     try {
-      const quryParams: any = {};
+      const quryParams: { name?: any; epoch?: any } = {};
 
       if (name) {
         quryParams.name = { $regex: name, $options: 'i' };
