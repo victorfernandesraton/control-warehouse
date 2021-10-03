@@ -6,11 +6,14 @@ import { StorageRoute } from './routes/';
 
 import CreateStorage from '../../usecase/CreateStorage';
 import ListStorage from '../../usecase/ListStorages';
+import FindStorageById from '../../usecase/FindeStorageById';
 
 import StorageCreateController from './controller/StorageCreateController';
+import StorageListConttroller from './controller/StorageListController';
+import StorageFindController from './controller/StorageFindController';
 import MongoDBFactory from '../../infra/repository/mongodb/Factory';
 import { BaseExpressController } from './Express/Controller';
-import StorageListConttroller from './controller/StorageListController';
+
 const start = async () => {
   const uri = process.env.MONGODB_HOST;
 
@@ -21,6 +24,7 @@ const start = async () => {
     const { storage } = await MongoDBFactory(MongoHelper);
     const createStorage = new CreateStorage({ repository: storage });
     const listStorage = new ListStorage(storage);
+    const findstorageById = new FindStorageById(storage);
     const storageCreateController = new StorageCreateController(
       createStorage,
       controller
@@ -31,9 +35,15 @@ const start = async () => {
       controller
     );
 
+    const storageFindController = new StorageFindController(
+      findstorageById,
+      controller
+    );
+
     const storageRoute = StorageRoute(
       storageCreateController,
       storageListConttroller,
+      storageFindController,
       router
     );
 
