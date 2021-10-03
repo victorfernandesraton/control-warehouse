@@ -1,9 +1,10 @@
+import { Document } from 'mongodb';
 import BasicEntity from '../core/entity/BasicEntity';
 import PaginationEntity from '../shared/utils/PaginationEntity';
 
 export interface PaginationEntityOptionsObjectParams {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  after?: string | number;
+  after?: number | string;
   limit?: number;
 }
 
@@ -12,6 +13,16 @@ export abstract class PaginationEntityAdapterStrategy {
     data: Array<T>,
     { after, limit }: PaginationEntityOptionsObjectParams
   ): PaginationEntity<T>;
+}
+
+export class PaginationEntityMongoDBAdapter extends PaginationEntityAdapterStrategy {
+  create<T extends BasicEntity>(data: Array<T>): PaginationEntity<T> {
+    return new PaginationEntity({
+      data,
+      after: data.length ? data?.[data?.length - 1]?.epoch : undefined,
+      before: data?.[0]?.epoch,
+    });
+  }
 }
 
 export class PaginationEntityAdapterInMemory extends PaginationEntityAdapterStrategy {

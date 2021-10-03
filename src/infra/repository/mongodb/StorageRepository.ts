@@ -4,15 +4,37 @@ import Storage from '../../../core/entity/Storage';
 import StorageRepository from '../StorageRepository';
 import StorageAdapter from '../../../adapters/Storage';
 import PaginationEntity from '../../../shared/utils/PaginationEntity';
+import { PaginationEntityMongoDBAdapter } from '../../../adapters/PaginationEntity';
 
 export default class MongoStorageRepositoy implements StorageRepository {
-  constructor(readonly collection: Collection) {}
-  findAll(
+  readonly paginationAdapter: PaginationEntityMongoDBAdapter;
+  constructor(readonly collection: Collection) {
+    this.paginationAdapter = new PaginationEntityMongoDBAdapter();
+  }
+  async findAll(
     name?: string,
     afterAt?: number,
     limit?: number
   ): Promise<PaginationEntity<Storage>> {
-    throw new Error('Method not implemented.');
+    try {
+      const quryParams: any = {};
+
+      if (name) {
+        quryParams.name = { $regex: name, $options: 'i' };
+      }
+      if (afterAt) {
+        quryParams.epoch = { $lte: afterAt };
+      }
+
+      const result = (await this.collection
+        .find({ ...quryParams })
+        .limit(limit)
+        .toArray()) as Storage[];
+
+      return this.paginationAdapter.create(result);
+    } catch (error) {
+      throw new Error('find some crash');
+    }
   }
   find(id: string): Promise<Storage> {
     throw new Error('Method not implemented.');

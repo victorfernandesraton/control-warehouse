@@ -1,12 +1,12 @@
 export interface PaginationEntityObjectParams<T> {
   data: Array<T>;
-  after?: string;
-  before?: string;
+  after?: string | number;
+  before?: string | number;
 }
 export default class PaginationEntity<T> {
   data: Array<T> = [];
-  after?: string;
-  before?: string;
+  after?: string | number;
+  before?: string | number;
 
   constructor({ data, after, before }: PaginationEntityObjectParams<T>) {
     this.data = data;
