@@ -36,8 +36,20 @@ export default class MongoStorageRepositoy implements StorageRepository {
       throw new Error('find some crash');
     }
   }
-  find(id: string): Promise<Storage> {
-    throw new Error('Method not implemented.');
+  async find(id: string): Promise<Storage> {
+    try {
+      const item = (await this.collection.findOne({
+        id,
+      })) as Storage;
+
+      if (item) {
+        return Promise.resolve(item);
+      } else {
+        throw new Error('Not found');
+      }
+    } catch (error) {
+      throw new Error('Not found');
+    }
   }
   async createStorage(storage: Storage): Promise<Storage> {
     const item = StorageAdapter.create(storage);
